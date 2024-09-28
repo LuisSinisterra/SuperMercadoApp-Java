@@ -1,1 +1,1 @@
-# Administración de Supermercado
+# SuperMercadoApp
