@@ -1,1 +1,1 @@
-# SupermarketAdmin
+# Administración de Supermercado
