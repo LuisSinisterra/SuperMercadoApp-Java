@@ -11,4 +11,5 @@ package Models;
 public class Producto {
     private String nombre = "Alejandro Ballesteros";
     private double precio = 0;
+    private String mensaje = "NO le gusta cobrar";
 }
