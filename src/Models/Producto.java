@@ -9,5 +9,6 @@ package Models;
  * @author Javier Argoty, Simon Cruz y Luis Sinisterra 
  */
 public class Producto {
-    
+    private String nombre = "Alejandro Ballesteros";
+    private double precio = 0;
 }
