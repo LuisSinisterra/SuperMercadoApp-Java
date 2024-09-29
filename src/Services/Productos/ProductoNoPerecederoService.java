@@ -6,7 +6,7 @@ package Services.Productos;
 
 /**
  *
- * @author luis
+ * @author Luis Sinisterra, Simon Cruz, Leonardo Argoty
  */
 public class ProductoNoPerecederoService {
     
