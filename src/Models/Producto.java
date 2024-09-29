@@ -13,4 +13,5 @@ public class Producto {
     private double precio = 0;
     private String mensaje = "NO le gusta cobrar";
     private String[] reseñas = {""};
+    private double salarioMensual = 0;
 }
