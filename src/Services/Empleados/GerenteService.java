@@ -6,7 +6,7 @@ package Services.Empleados;
 
 /**
  *
- * @author luis
+ * @author Luis Sinisterra, Simon Cruz, Leonardo Argoty
  */
 public class GerenteService {
     
