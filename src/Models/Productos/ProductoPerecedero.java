@@ -6,7 +6,7 @@ package Models.Productos;
 
 /**
  *
- * @author PC
+ * @author Luis Sinisterra, Simon Cruz, Leonardo Argoty
  */
 public class ProductoPerecedero {
     
