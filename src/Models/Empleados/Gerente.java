@@ -8,6 +8,18 @@ package Models.Empleados;
  *
  * @author Luis Sinisterra, Simon Cruz, Leonardo Argoty
  */
-public class Gerente {
+public class Gerente extends Empleado{
+    
+    private String bonificacion;
+    
+    public Gerente(int idEmpleado, String nombreCompleto, double salario, String bonificacion){
+        super(idEmpleado, nombreCompleto, salario);
+        this.bonificacion = bonificacion;
+    }
+    
+    @Override
+    public double calcularSalario(){
+        return 0;
+    }
     
 }

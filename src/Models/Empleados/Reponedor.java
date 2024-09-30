@@ -6,20 +6,19 @@ package Models.Empleados;
 
 /**
  *
- * @author Luis Sinisterra, Simon Cruz, Leonardo Argoty
+ * @author luis
  */
-public class Cajero extends Empleado{
-    
-    private String turno;
-    
-    public Cajero(int idEmpleado, String nombreCompleto, double salario, String turno){
+public class Reponedor extends Empleado{
+        
+    public Reponedor(int idEmpleado, String nombreCompleto, double salario){
         super(idEmpleado, nombreCompleto, salario);
-        this.turno = turno;
     }
     
     @Override
     public double calcularSalario(){
         return 0;
     }
+    
+    
     
 }
