@@ -8,12 +8,23 @@ package Models.Productos;
  *
  * @author Luis Sinisterra, Simon Cruz, Leonardo Argoty
  */
-public class Producto {
+public abstract class Producto {
     
     private int codigoProduto;
     private String nombreProducto;
     private double precio;
     private int stock;
+
+    public Producto(int codigoProduto, String nombreProducto, double precio, int stock) {
+        this.codigoProduto = codigoProduto;
+        this.nombreProducto = nombreProducto;
+        this.precio = precio;
+        this.stock = stock;
+    }
+
+    public abstract double calcularPrecio();
+
+    public abstract void mostrarInformacion();
     
     public void setCodigoProdcuto(int codigoProducto){
         this.codigoProduto = codigoProducto;
@@ -46,13 +57,5 @@ public class Producto {
     public int getStock(){
         return this.stock;
     }
-    
-    public void calcularPrecio(){
-        //Codigo de calcular precio
-    }
-    
-    public void mostrarInformacion(){
-        //Codigo de mostrar informacion
-    }
-    
+
 }
