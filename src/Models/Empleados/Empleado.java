@@ -11,12 +11,12 @@ package Models.Empleados;
 public class Empleado {
     private int idEmpleado;
     private String nombreCompleto;
-    private double salario;
+    private double salarioMensual;
     
     public Empleado(int idEmpleado, String nombreCompleto, double salario){
         this.idEmpleado = idEmpleado;
         this.nombreCompleto = nombreCompleto;
-        this.salario = salario;
+        this.salarioMensual = salario;
     }
 
     public int getIdEmpleado() {
@@ -26,9 +26,8 @@ public class Empleado {
     public String getNombreCompleto() {
         return nombreCompleto;
     }
-
-    public double getSalario() {
-        return salario;
+    public double getSalarioMensual() {
+        return salarioMensual;
     }
 
     public void setIdEmpleado(int idEmpleado) {
@@ -39,8 +38,8 @@ public class Empleado {
         this.nombreCompleto = nombreCompleto;
     }
 
-    public void setSalario(double salario) {
-        this.salario = salario;
+    public void setSalarioMensual(double salario) {
+        this.salarioMensual = salario;
     }
     
     
