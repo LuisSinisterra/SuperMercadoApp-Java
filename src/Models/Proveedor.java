@@ -29,6 +29,17 @@ public class Proveedor {
     public void suministrarProducto(Producto producto) {
         productosSuministrados.add(producto);
     }
+    
+    public void eliminarProducto(int codProducto) throws RuntimeException {
+        // Busca el producto por su codigo y si lo encuentra lo borra del array, si no manda excepcion
+        for (int i = 0; i < productosSuministrados.size(); i++) {
+            if (productosSuministrados.get(i).getCodigoProducto() == codProducto) {
+                productosSuministrados.remove(i);
+                return;
+            }
+        }
+        throw new RuntimeException("No se encuentra el Producto que desea eliminar en este proveedor");
+    }
 
     public int getIdProveedor() {
         return idProveedor;
