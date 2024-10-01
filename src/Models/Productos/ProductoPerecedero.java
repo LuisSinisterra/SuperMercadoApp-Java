@@ -10,7 +10,7 @@ package Models.Productos;
  */
 public class ProductoPerecedero extends Producto{
 
-    String fechaCaducidad;
+    private String fechaCaducidad;
 
     public ProductoPerecedero(int codigoProduto, String nombreProducto, double precio, int stock, String fechaCaducidad) {
         super(codigoProduto, nombreProducto, precio, stock);
