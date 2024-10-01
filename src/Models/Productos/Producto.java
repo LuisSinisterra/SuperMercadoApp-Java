@@ -22,6 +22,9 @@ public abstract class Producto {
         this.stock = stock;
     }
 
+
+    //
+
     public abstract double calcularPrecio();
 
     public abstract void mostrarInformacion();

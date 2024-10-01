@@ -10,7 +10,7 @@ package Models.Productos;
  */
 public class ProductoNoPerecedero extends Producto{
 
-    String duracionAlmacen;
+    private String duracionAlmacen;
 
     public ProductoNoPerecedero(int codigoProduto, String nombreProducto, double precio, int stock, String duracionAlmacen) {
         super(codigoProduto, nombreProducto, precio, stock);
