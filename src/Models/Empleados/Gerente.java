@@ -12,8 +12,8 @@ public class Gerente extends Empleado{
     
     private String bonificacion;
     
-    public Gerente(int idEmpleado, String nombreCompleto, double salario, String bonificacion){
-        super(idEmpleado, nombreCompleto, salario);
+    public Gerente(int idEmpleado, String nombreCompleto, double salarioMensual, String bonificacion){
+        super(idEmpleado, nombreCompleto, salarioMensual);
         this.bonificacion = bonificacion;
     }
     

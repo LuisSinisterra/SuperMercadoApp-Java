@@ -12,8 +12,8 @@ public class Cajero extends Empleado{
     
     private String turno;
     
-    public Cajero(int idEmpleado, String nombreCompleto, double salario, String turno){
-        super(idEmpleado, nombreCompleto, salario);
+    public Cajero(int idEmpleado, String nombreCompleto, double salarioMensual, String turno){
+        super(idEmpleado, nombreCompleto, salarioMensual);
         this.turno = turno;
     }
     

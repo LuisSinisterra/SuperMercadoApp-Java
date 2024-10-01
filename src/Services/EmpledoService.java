@@ -1,6 +1,9 @@
 package Services;
 
+import Models.Empleados.Cajero;
 import Models.Empleados.Empleado;
+import Models.Empleados.Gerente;
+import Models.Empleados.Reponedor;
 
 import java.util.ArrayList;
 
@@ -11,9 +14,22 @@ public class EmpledoService {
         this.empleados = new ArrayList<>();
     }
 
-    //Metetodo sin completar por ahora
-    public void agregarEmpleado(Empleado empleado) {
-        empleados.add(empleado);
+    //Metodo para agregar un empleado de tipo cajero (Metodo sin completar)
+    public void agregarEmpleadoCajero(int idEmpleado, String nombreCompleto, double salarioMensual, String turno) {
+        Cajero cajero = new Cajero(idEmpleado, nombreCompleto, salarioMensual, turno);
+        empleados.add(cajero);
+    }
+
+    //Metodo para agregar un empleado de tipo genrente (Metodo sin completar)
+    public void agregarEmpleadoGerente(int idEmpleado, String nombreCompleto, double salarioMensual, String bonificacion) {
+        Gerente gerente = new Gerente(idEmpleado, nombreCompleto, salarioMensual, bonificacion);
+        empleados.add(gerente);
+    }
+
+    //Metodo para agregar un empleado de tipo reponedor (Metodo sin completar)
+    public void agregarEmpleadoReponedor(int idEmpleado, String nombreCompleto, double salarioMensual) {
+        Reponedor reponedor = new Reponedor(idEmpleado, nombreCompleto, salarioMensual);
+        empleados.add(reponedor);
     }
 
     //Metetodo sin completar por ahora
