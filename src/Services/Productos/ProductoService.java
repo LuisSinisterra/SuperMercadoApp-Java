@@ -20,36 +20,37 @@ public class ProductoService {
     }
 
     //metodo registrar(validar no mismo codigo)
-    public void registrarProducto(Producto producto) {
-        for(int i = 0; i < productosDisponibles.size(); i++) {
-            if(productosDisponibles.get(i).getCodigoProducto() == producto.getCodigoProducto()) {
-                this.productosDisponibles.add(producto);
+    public void agregarProducto(Producto producto) {
+        for(Producto pro : productosDisponibles){
+            if(pro.getCodigoProducto() == producto.getCodigoProducto()) {
+               return;
             }
         }
+        this.productosDisponibles.add(producto);
     }
     //actualizar
-    public void actualizarProducto(Producto producto) {
-        for(int i = 0; i < productosDisponibles.size(); i++) {
-            if(productosDisponibles.get(i).getCodigoProducto() == producto.getCodigoProducto()) {
-                productosDisponibles.set(i, producto);
+    public void editarProducto(Producto producto) {
+        for(Producto pro : productosDisponibles) {
+            if(pro.getCodigoProducto() == producto.getCodigoProducto()) {
+                productosDisponibles.set(productosDisponibles.indexOf(pro), producto);
             }
         }
     }
 
     //eliminar
     public void eliminarProducto(int codProducto) {
-        for(int i = 0; i < productosDisponibles.size(); i++) {
-            if(productosDisponibles.get(i).getCodigoProducto() == codProducto) {
-                productosDisponibles.remove(i);
+        for(Producto pro : productosDisponibles) {
+            if(pro.getCodigoProducto() == codProducto) {
+                productosDisponibles.remove(pro);
             }
         }
     }
 
     //buscar producto nombre
     public Producto buscarProductoNombre(String nombre) {
-        for(int i = 0; i < productosDisponibles.size(); i++) {
-            if (productosDisponibles.get(i).getNombreProducto().equals(nombre)) {
-                return productosDisponibles.get(i);
+        for(Producto pro : productosDisponibles) {
+            if (pro.getNombreProducto().equals(nombre)) {
+                return pro;
             }
         }
         return null;
@@ -57,9 +58,9 @@ public class ProductoService {
 
     //buscar producto codigo
     public Producto buscarProductoCodigo(int codProducto) {
-        for(int i = 0; i < productosDisponibles.size(); i++) {
-            if(productosDisponibles.get(i).getCodigoProducto() == codProducto) {
-                return productosDisponibles.get(i);
+        for(Producto pro : productosDisponibles) {
+            if (pro.getCodigoProducto() == codProducto) {
+                return pro;
             }
         }
         return null;
@@ -67,9 +68,9 @@ public class ProductoService {
 
     //buscar producto precio
     public Producto buscarProductoPrecio(int precio) {
-        for(int i = 0; i < productosDisponibles.size(); i++) {
-            if(productosDisponibles.get(i).getPrecio() == precio) {
-                return productosDisponibles.get(i);
+        for(Producto pro : productosDisponibles) {
+            if (pro.getPrecio() == precio) {
+                return pro;
             }
         }
         return null;
@@ -77,14 +78,12 @@ public class ProductoService {
 
     //buscar producto stock
     public Producto buscarProductoStock(int stock) {
-        for(int i = 0; i < productosDisponibles.size(); i++) {
-            if(productosDisponibles.get(i).getStock() == stock) {
-                return productosDisponibles.get(i);
+        for(Producto pro : productosDisponibles) {
+            if (pro.getStock() == stock) {
+                return pro;
             }
         }
         return null;
     }
-
-
 
 }
