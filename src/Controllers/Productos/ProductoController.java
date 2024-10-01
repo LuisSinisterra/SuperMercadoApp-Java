@@ -11,13 +11,13 @@ public class ProductoController {
         this.productoService = new ProductoService();
     }
 
-    public void registrarProducto(Producto producto) {
-        productoService.registrarProducto(producto);
+    public void agregarProducto(Producto producto) {
+        productoService.agregarProducto(producto);
     }
 
     //actualizar
-    public void actualizarProducto(Producto producto) {
-        productoService.actualizarProducto(producto);
+    public void editarProducto(Producto producto) {
+        productoService.editarProducto(producto);
     }
 
     //eliminar
