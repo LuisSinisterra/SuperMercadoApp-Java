@@ -10,8 +10,8 @@ package Models.Empleados;
  */
 public class Reponedor extends Empleado{
         
-    public Reponedor(int idEmpleado, String nombreCompleto, double salario){
-        super(idEmpleado, nombreCompleto, salario);
+    public Reponedor(int idEmpleado, String nombreCompleto, double salarioMensual){
+        super(idEmpleado, nombreCompleto, salarioMensual);
     }
     
     @Override
