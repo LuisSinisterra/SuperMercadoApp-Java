@@ -19,6 +19,4 @@ public class Reponedor extends Empleado{
         return 0;
     }
     
-    
-    
 }
