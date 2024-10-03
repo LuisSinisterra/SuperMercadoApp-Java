@@ -7,21 +7,26 @@ import java.util.ArrayList;
 
 public class Venta {
     //Arreglar en caso de ser necesario
+    //version en prueba
     private int idVenta;
     private Cliente Cliente;
     private ArrayList<Producto> productos;
     private double total;
     private Empleado empleado;
 
-    public Venta(int idVenta, Models.Cliente cliente, Empleado empleado, double total, ArrayList<Producto> productos) {
+    public Venta(int idVenta, Cliente cliente, Empleado empleado, double total) {
         this.idVenta = idVenta;
         Cliente = cliente;
         this.empleado = empleado;
         this.total = total;
-        this.productos = productos;
+        this.productos = new ArrayList<>();
     }
 
-    public Models.Cliente getCliente() {
+    public void agregarProducto(Producto producto) {
+        productos.add(producto);
+    }
+
+    public Cliente getCliente() {
         return Cliente;
     }
 
@@ -61,4 +66,3 @@ public class Venta {
         this.empleado = empleado;
     }
 }
-//registrar venta(excepcion stock insuficiente)
