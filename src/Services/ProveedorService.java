@@ -18,22 +18,43 @@ public class ProveedorService {
         proveedores = new ArrayList<Proveedor>();
     }
     
-    //Metetodo sin completar por ahora
+    // Agrega proveedor default, falta configurar el id incrementable mejor
     public void agregarProveedor(Proveedor proveedor) {
         proveedores.add(proveedor);
     }
 
-    //Metetodo sin completar por ahora
-    public void eliminarProveedor(int idProveedor){
+    // Elimina proveedor por id, si no encuentra lanza excepcion
+    public void eliminarProveedor(int idProveedor) throws RuntimeException{
         for(Proveedor proveedor : proveedores){
             if(proveedor.getIdProveedor() == idProveedor){
                 proveedores.remove(proveedor);
+                return;
             }
         }
+        throw new RuntimeException("No se encuentra el Proveedor que desea eliminar");
     }
-
-    //Metetodo sin completar por ahora
-    public void editarProveedor(Proveedor proveedor) {
-        proveedores.set(proveedores.indexOf(proveedor), proveedor);
+    
+      // Edita el proveedor, segun la busqueda del id de este mismo
+    public void editarProveedor(Proveedor proveedor) throws RuntimeException {
+        //proveedors.set(proveedors.indexOf(proveedor), proveedor); // esto no esta bien creo
+        Proveedor aux = buscarProveedorPorId(proveedor.getIdProveedor());
+        if (aux != null) {
+            aux.setNombreEmpresa(proveedor.getNombreEmpresa());
+            aux.setTelefonoContacto(proveedor.getTelefonoContacto());
+            aux.setEmail(proveedor.getEmail());
+            
+            return;
+        }
+        throw new RuntimeException("No se encuentra el Proveedor que desea editar");
+    }
+    
+    // Busca Proveedor Por Id
+    public Proveedor buscarProveedorPorId(int idProveedor){
+        for(Proveedor proveedor : proveedores){
+            if(proveedor.getIdProveedor() == idProveedor){
+                return proveedor;
+            }
+        }
+        return null;
     }
 }

@@ -17,7 +17,7 @@ public class Cliente {
     private String email;
     
     // Por ahora no se que tipo de dato es, puse str, lo mas probable es que es con el objeto "Ventas" que aparece en morado esa seccion, aun no se hace
-    private ArrayList<String> historialCompras; 
+    private ArrayList<Venta> historialCompras; 
 
     public Cliente(int idCliente, String nombreCompleto, String telefono, String email) {
         this.idCliente = idCliente;
@@ -31,9 +31,10 @@ public class Cliente {
     public String mostrarCompras() throws RuntimeException {
         if (historialCompras.isEmpty()) throw new RuntimeException("Lo siento, este cliente no tiene compras registradas.");
         
+        // Por ahora almacena los id de las ventas en un string y retorna eso
         String compras = "";
-        for (String compra : historialCompras) {
-            compras += compra;
+        for (Venta compra : historialCompras) {
+            compras += compra.getIdVenta();
         }
         
         return compras;
@@ -71,11 +72,11 @@ public class Cliente {
         this.email = email;
     }
 
-    public ArrayList<String> getHistorialCompras() {
+    public ArrayList<Venta> getHistorialCompras() {
         return historialCompras;
     }
 
-    public void setHistorialCompras(ArrayList<String> historialCompras) {
+    public void setHistorialCompras(ArrayList<Venta> historialCompras) {
         this.historialCompras = historialCompras;
     }
     
