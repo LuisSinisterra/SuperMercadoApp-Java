@@ -30,8 +30,8 @@ public class EmpleadoController {
         this.empleadoService.eliminarEmpleado(idEmpleado);
     }
 
-    public void editarEmpleado(Empleado empleado) {
-        this.empleadoService.editarEmpleado(empleado);
+    public void editarEmpleado(int idEmpleado, String nombreCompleto, double salarioMensual) {
+        this.empleadoService.editarEmpleado(idEmpleado, nombreCompleto, salarioMensual);
     }
 
 }
