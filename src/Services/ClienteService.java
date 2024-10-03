@@ -18,22 +18,43 @@ public class ClienteService {
         clientes = new ArrayList<Cliente>();
     }
     
-    //Metetodo sin completar por ahora
+    // Agrega cliente default, falta configurar el id incrementable mejor
     public void agregarCliente(Cliente cliente) {
         clientes.add(cliente);
     }
 
-    //Metetodo sin completar por ahora
-    public void eliminarCliente(int idCliente){
+    // Elimina cliente, si no encuentra su id lanza excepcion
+    public void eliminarCliente(int idCliente) throws RuntimeException{
         for(Cliente cliente : clientes){
             if(cliente.getIdCliente() == idCliente){
                 clientes.remove(cliente);
+                return;
             }
         }
+        throw new RuntimeException("No se encuentra el Cliente que desea eliminar");
     }
 
-    //Metetodo sin completar por ahora
-    public void editarCliente(Cliente cliente) {
-        clientes.set(clientes.indexOf(cliente), cliente);
+    // Edita el cliente, segun la busqueda del id de este mismo
+    public void editarCliente(Cliente cliente) throws RuntimeException {
+        //clientes.set(clientes.indexOf(cliente), cliente); // esto no esta bien creo
+        Cliente aux = buscarClientePorId(cliente.getIdCliente());
+        if (aux != null) {
+            aux.setNombreCompleto(cliente.getNombreCompleto());
+            aux.setTelefono(cliente.getTelefono());
+            aux.setEmail(cliente.getEmail());
+            
+            return;
+        }
+        throw new RuntimeException("No se encuentra el Cliente que desea editar");
+    }
+    
+    // Busca Cliente Por Id
+    public Cliente buscarClientePorId(int idCliente){
+        for(Cliente cliente : clientes){
+            if(cliente.getIdCliente() == idCliente){
+                return cliente;
+            }
+        }
+        return null;
     }
 }

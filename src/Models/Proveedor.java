@@ -27,6 +27,7 @@ public class Proveedor {
     }
     
     public void suministrarProducto(Producto producto) {
+        // Yo creeria que falta validar que el producto que se pase exista en el array de Productos
         productosSuministrados.add(producto);
     }
     

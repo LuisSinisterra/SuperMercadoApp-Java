@@ -4,10 +4,33 @@
  */
 package Controllers;
 
+import Models.Proveedor;
+import Services.ProveedorService;
+
 /**
  *
  * @author Luis Sinisterra, Simon Cruz, Leonardo Argoty
  */
 public class ProveedorController {
+    private ProveedorService proveedorService;
     
+    public ProveedorController() {
+        proveedorService = new ProveedorService();
+    }
+    
+    public void agregarProveedor(Proveedor proveedor) {
+        proveedorService.agregarProveedor(proveedor);
+    }
+
+    public void eliminarProveedor(int idProveedor) throws RuntimeException{
+        proveedorService.eliminarProveedor(idProveedor);
+    }
+
+    public void editarProveedor(Proveedor proveedor) throws RuntimeException {
+        proveedorService.editarProveedor(proveedor);
+    }
+    
+    public Proveedor buscarProveedorPorId(int idProveedor){
+        return proveedorService.buscarProveedorPorId(idProveedor);
+    }
 }

@@ -2,21 +2,20 @@ package Models;
 
 import Models.Empleados.Empleado;
 import Models.Productos.Producto;
-
 import java.util.ArrayList;
 
 public class Venta {
     //Arreglar en caso de ser necesario
     //version en prueba
     private int idVenta;
-    private Cliente Cliente;
+    private Cliente cliente;
     private ArrayList<Producto> productos;
     private double total;
     private Empleado empleado;
 
     public Venta(int idVenta, Cliente cliente, Empleado empleado, double total) {
         this.idVenta = idVenta;
-        Cliente = cliente;
+        this.cliente = cliente;
         this.empleado = empleado;
         this.total = total;
         this.productos = new ArrayList<>();
@@ -27,11 +26,11 @@ public class Venta {
     }
 
     public Cliente getCliente() {
-        return Cliente;
+        return this.cliente;
     }
 
-    public void setCliente(Models.Cliente cliente) {
-        Cliente = cliente;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public int getIdVenta() {
