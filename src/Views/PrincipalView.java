@@ -4,7 +4,11 @@
  */
 package Views;
 
+<<<<<<< HEAD
 import java.awt.Color;
+=======
+import Controllers.Productos.ProductoController;
+>>>>>>> Simon-productos
 
 /**
  *
@@ -15,14 +19,21 @@ public class PrincipalView extends javax.swing.JFrame {
     /**
      * Creates new form PrincipalView
      */
-    public PrincipalView() {
+    ProductoController pc;
+    
+    public PrincipalView(ProductoController pc) {
         initComponents();
+<<<<<<< HEAD
         this.pintarBtnIniciarSesion();
         setLocationRelativeTo(this);
     }
     
     private void pintarBtnIniciarSesion(){
         btnIniciarSesion.setBackground(new Color(46, 134, 193));
+=======
+        setLocationRelativeTo(this);
+        pc = pc == null? new ProductoController(): pc;
+>>>>>>> Simon-productos
     }
 
     /**
@@ -34,6 +45,7 @@ public class PrincipalView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+<<<<<<< HEAD
         txtIdEmpleado = new javax.swing.JTextField();
         txtCorreo = new javax.swing.JTextField();
         btnIniciarSesion = new javax.swing.JButton();
@@ -55,12 +67,29 @@ public class PrincipalView extends javax.swing.JFrame {
         jLabel2.setText("Identificación del empleado");
 
         jLabel3.setText("Correo del empleado");
+=======
+        jPanel1 = new javax.swing.JPanel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 513, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 378, Short.MAX_VALUE)
+        );
+>>>>>>> Simon-productos
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+<<<<<<< HEAD
                 .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
@@ -74,10 +103,16 @@ public class PrincipalView extends javax.swing.JFrame {
                 .addContainerGap(165, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(159, 159, 159))
+=======
+                .addGap(79, 79, 79)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(95, Short.MAX_VALUE))
+>>>>>>> Simon-productos
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+<<<<<<< HEAD
                 .addGap(16, 16, 16)
                 .addComponent(jLabel1)
                 .addGap(31, 31, 31)
@@ -91,6 +126,11 @@ public class PrincipalView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(43, Short.MAX_VALUE))
+=======
+                .addGap(30, 30, 30)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(33, Short.MAX_VALUE))
+>>>>>>> Simon-productos
         );
 
         pack();
@@ -130,17 +170,21 @@ public class PrincipalView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PrincipalView().setVisible(true);
+                new PrincipalView(null).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+<<<<<<< HEAD
     private javax.swing.JButton btnIniciarSesion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtIdEmpleado;
+=======
+    private javax.swing.JPanel jPanel1;
+>>>>>>> Simon-productos
     // End of variables declaration//GEN-END:variables
 }

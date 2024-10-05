@@ -10,13 +10,13 @@ package Models.Productos;
  */
 public abstract class Producto {
     
-    private int codigoProduto;
+    private int codigoProducto;
     private String nombreProducto;
     private double precio;
     private int stock;
 
     public Producto(int codigoProduto, String nombreProducto, double precio, int stock) {
-        this.codigoProduto = codigoProduto;
+        this.codigoProducto = codigoProduto;
         this.nombreProducto = nombreProducto;
         this.precio = precio;
         this.stock = stock;
@@ -30,11 +30,11 @@ public abstract class Producto {
     public abstract void mostrarInformacion();
     
     public void setCodigoProdcuto(int codigoProducto){
-        this.codigoProduto = codigoProducto;
+        this.codigoProducto = codigoProducto;
     }
     
     public int getCodigoProducto(){
-        return this.codigoProduto;
+        return this.codigoProducto;
     }
     
     public void setNombreProducto(String nombreProducto){ 
