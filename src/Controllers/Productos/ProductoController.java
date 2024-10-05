@@ -2,6 +2,7 @@ package Controllers.Productos;
 
 import Models.Productos.Producto;
 import Services.Productos.ProductoService;
+import java.util.ArrayList;
 
 public class ProductoController {
 
@@ -43,5 +44,9 @@ public class ProductoController {
     //buscar producto stock
     public Producto buscarProductoStock(int stock) {
         return productoService.buscarProductoStock(stock);
+    }
+    
+    public ArrayList<Producto> getProductos(){
+        return productoService.getProductos();
     }
 }

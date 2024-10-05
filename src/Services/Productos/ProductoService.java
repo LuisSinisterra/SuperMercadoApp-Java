@@ -86,4 +86,7 @@ public class ProductoService {
         return null;
     }
 
+    public ArrayList<Producto> getProductos(){
+        return productosDisponibles;
+    }
 }
