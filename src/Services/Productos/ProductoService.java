@@ -1,7 +1,6 @@
 package Services.Productos;
 
 import Models.Productos.Producto;
-import Models.Productos.ProductoPerecedero;
 
 import java.util.ArrayList;
 
@@ -87,7 +86,4 @@ public class ProductoService {
         return null;
     }
 
-    public ArrayList<Producto> getProductos(){
-        return productosDisponibles;
-    }
 }
