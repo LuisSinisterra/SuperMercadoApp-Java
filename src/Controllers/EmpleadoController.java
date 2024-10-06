@@ -1,28 +1,30 @@
 package Controllers;
 
 import Models.Empleados.Empleado;
-import Services.EmpledoService;
+import Services.EmpleadoService;
+
+import java.util.ArrayList;
 
 public class EmpleadoController {
-    EmpledoService empleadoService;
+    EmpleadoService empleadoService;
 
     public EmpleadoController() {
-        empleadoService = new EmpledoService();
+        empleadoService = new EmpleadoService();
     }
 
     //Metodo para agregar empleado cajero
-    public void agregarEmpleadoCajero(int idEmpleado, String nombreCompleto, double salarioMensual, String turno) {
-        this.empleadoService.agregarEmpleadoCajero(idEmpleado, nombreCompleto, salarioMensual, turno);
+    public void agregarEmpleadoCajero(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno) {
+        this.empleadoService.agregarEmpleadoCajero(idEmpleado, nombreCompleto, correo, salarioMensual, turno);
     }
 
     //Metodo para agregar empleaado gerente
-    public void agregarEmpleadoGerente(int idEmpleado, String nombreCompleto, double salarioMensual, String bonificacion) {
-        this.empleadoService.agregarEmpleadoGerente(idEmpleado, nombreCompleto, salarioMensual, bonificacion);
+    public void agregarEmpleadoGerente(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, String bonificacion) {
+        this.empleadoService.agregarEmpleadoGerente(idEmpleado, nombreCompleto, correo, salarioMensual, bonificacion);
     }
 
     //Metodo para agreagar empleado reponedor
-    public void agregarEmpleadoReponedor(int idEmpleado, String nombreCompleto, double salarioMensual) {
-        this.empleadoService.agregarEmpleadoReponedor(idEmpleado, nombreCompleto, salarioMensual);
+    public void agregarEmpleadoReponedor(int idEmpleado, String nombreCompleto, String correo, double salarioMensual) {
+        this.empleadoService.agregarEmpleadoReponedor(idEmpleado, nombreCompleto, correo, salarioMensual);
     }
 
     //Metodo para eliminar empleado por su id empleado
@@ -30,8 +32,18 @@ public class EmpleadoController {
         this.empleadoService.eliminarEmpleado(idEmpleado);
     }
 
-    public void editarEmpleado(int idEmpleado, String nombreCompleto, double salarioMensual) {
-        this.empleadoService.editarEmpleado(idEmpleado, nombreCompleto, salarioMensual);
+    public void editarEmpleadoGerente(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, String bonificacion) {
+        this.empleadoService.editarEmpleadoGerente(idEmpleado, nombreCompleto, correo, salarioMensual, bonificacion);
+    }
+    public void editarEmpleadoCajero(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno) {
+        this.empleadoService.editarEmpleadoCajero(idEmpleado, nombreCompleto, correo, salarioMensual, turno);
+    }
+    public void editarEmpleadoReponedor(int idEmpleado, String nombreCompleto, String correo, double salarioMensual) {
+        this.empleadoService.editarEmpleadoReponedor(idEmpleado, nombreCompleto, correo, salarioMensual);
+    }
+
+    public ArrayList<Empleado> getEmpleados() {
+        return this.empleadoService.getEmpleados();
     }
 
 }

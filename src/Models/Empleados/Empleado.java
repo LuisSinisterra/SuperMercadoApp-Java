@@ -11,12 +11,14 @@ package Models.Empleados;
 public class Empleado {
     private int idEmpleado;
     private String nombreCompleto;
+    private String correo;
     private double salarioMensual;
     
-    public Empleado(int idEmpleado, String nombreCompleto, double salario){
+    public Empleado(int idEmpleado, String nombreCompleto, String correo, double salario){
         this.idEmpleado = idEmpleado;
         this.nombreCompleto = nombreCompleto;
         this.salarioMensual = salario;
+        this.correo = correo;
     }
 
     public int getIdEmpleado() {
@@ -41,8 +43,15 @@ public class Empleado {
     public void setSalarioMensual(double salario) {
         this.salarioMensual = salario;
     }
-    
-    
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
     public double calcularSalario(){
        return 0;        
     }

@@ -4,6 +4,7 @@
  */
 package Views;
 
+import Controllers.EmpleadoController;
 import Controllers.Productos.ProductoController;
 
 /**
@@ -15,12 +16,15 @@ public class ViewGerente extends javax.swing.JFrame {
     /**
      * Creates new form ViewGerente
      */
-    ProductoController pc;
     
-    public ViewGerente(ProductoController pc) {
+    ProductoController pc;
+    EmpleadoController ec;
+
+    public ViewGerente(ProductoController pc, EmpleadoController ec) {
         initComponents();
         setLocationRelativeTo(this);
         this.pc = pc == null?  new ProductoController(): pc;
+        this.ec = pc == null?  new EmpleadoController(): ec;
     }
 
     /**
@@ -35,7 +39,7 @@ public class ViewGerente extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnGestionEmpleados = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -55,7 +59,12 @@ public class ViewGerente extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("GESTION EMPLEADOS");
+        btnGestionEmpleados.setText("GESTION EMPLEADOS");
+        btnGestionEmpleados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGestionEmpleadosActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("CONFIGURACION");
 
@@ -79,9 +88,9 @@ public class ViewGerente extends javax.swing.JFrame {
                         .addGap(201, 201, 201)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnGestionEmpleados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(197, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -94,7 +103,7 @@ public class ViewGerente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnGestionEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
@@ -125,7 +134,7 @@ public class ViewGerente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        GestionProductos vp = new GestionProductos(pc);
+        GestionProductos vp = new GestionProductos(this.pc);
         vp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -133,6 +142,12 @@ public class ViewGerente extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btnGestionEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionEmpleadosActionPerformed
+        GestionEmpleadosView ge = new GestionEmpleadosView(this.ec);
+        ge.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnGestionEmpleadosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -164,16 +179,16 @@ public class ViewGerente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ViewGerente(null).setVisible(true);
+                new ViewGerente(null, null).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGestionEmpleados;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

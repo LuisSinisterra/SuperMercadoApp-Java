@@ -65,17 +65,13 @@ public class GestionProductos extends javax.swing.JFrame {
                 pro.getPrecio(),
                 pro.getStock(),
                 pro.getClass().getSimpleName().equals("ProductoPerecedero")? "Perecedero":"NoPerecedero",
-                pro instanceof ProductoPerecedero? ((ProductoPerecedero)pro).getFechaCaducidad() : "",
+                pro instanceof ProductoPerecedero? ((ProductoPerecedero)pro).getFechaCaducidad(): "",
                 pro instanceof ProductoNoPerecedero? ((ProductoNoPerecedero)pro).getDuracionAlmacen() : ""
             });
         }
         tabla.setModel(modelo);
     }
-    
-    
-    
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -306,7 +302,7 @@ public class GestionProductos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ViewGerente vg = new ViewGerente(pc);
+        ViewGerente vg = new ViewGerente(this.pc, null);
         vg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed

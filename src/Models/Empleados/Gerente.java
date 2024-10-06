@@ -12,8 +12,8 @@ public class Gerente extends Empleado{
     
     private String bonificacion;
     
-    public Gerente(int idEmpleado, String nombreCompleto, double salarioMensual, String bonificacion){
-        super(idEmpleado, nombreCompleto, salarioMensual);
+    public Gerente(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, String bonificacion){
+        super(idEmpleado, nombreCompleto, correo ,salarioMensual);
         this.bonificacion = bonificacion;
     }
     
@@ -21,5 +21,13 @@ public class Gerente extends Empleado{
     public double calcularSalario(){
         return 0;
     }
-    
+
+    public String getBonificacion() {
+        return bonificacion;
+    }
+
+    public void setBonificacion(String bonificacion) {
+        this.bonificacion = bonificacion;
+    }
+
 }

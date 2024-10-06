@@ -12,14 +12,22 @@ public class Cajero extends Empleado{
     
     private String turno;
     
-    public Cajero(int idEmpleado, String nombreCompleto, double salarioMensual, String turno){
-        super(idEmpleado, nombreCompleto, salarioMensual);
+    public Cajero(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno){
+        super(idEmpleado, nombreCompleto, correo, salarioMensual);
         this.turno = turno;
     }
     
     @Override
     public double calcularSalario(){
         return 0;
+    }
+
+    public String getTurno(){
+        return turno;
+    }
+
+    public void setTurno(String turno){
+        this.turno = turno;
     }
     
 }
