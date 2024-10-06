@@ -2,6 +2,7 @@ package Controllers.Productos;
 
 import Models.Productos.Producto;
 import Services.Productos.ProductoService;
+import java.util.ArrayList;
 
 public class ProductoController {
 
@@ -13,6 +14,10 @@ public class ProductoController {
 
     public void agregarProducto(Producto producto) {
         productoService.agregarProducto(producto);
+    }
+    
+    public ArrayList<Producto> getProductos(){
+        return productoService.getProductos();
     }
 
     //actualizar
