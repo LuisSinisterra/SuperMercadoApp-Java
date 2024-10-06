@@ -52,7 +52,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jLabel1.setText("Iniciar sesión");
 
-        jLabel2.setText("Identificación del empleado");
+        jLabel2.setText("Id del empleado");
 
         jLabel3.setText("Correo del empleado");
 
