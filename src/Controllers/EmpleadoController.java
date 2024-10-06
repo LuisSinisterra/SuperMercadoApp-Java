@@ -29,7 +29,7 @@ public class EmpleadoController {
 
     //Metodo para eliminar empleado por su id empleado
     public void eliminarEmpleado(int idEmpleado) {
-        this.empleadoService.eliminarEmpleado(idEmpleado);
+        //this.empleadoService.eliminarEmpleado(idEmpleado);
     }
 
     public void editarEmpleadoGerente(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, String bonificacion) {
