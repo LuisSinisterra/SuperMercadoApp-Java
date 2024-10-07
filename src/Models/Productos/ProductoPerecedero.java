@@ -4,6 +4,8 @@
  */
 package Models.Productos;
 
+import Models.Proveedor;
+
 /**
  *
  * @author Luis Sinisterra, Simon Cruz, Leonardo Argoty
@@ -12,8 +14,8 @@ public class ProductoPerecedero extends Producto{
 
     private String fechaCaducidad;
 
-    public ProductoPerecedero(int codigoProduto, String nombreProducto, double precio, int stock, String fechaCaducidad) {
-        super(codigoProduto, nombreProducto, precio, stock);
+    public ProductoPerecedero(int codigoProduto, String nombreProducto, double precio, int stock, String fechaCaducidad, Proveedor proveedor) {
+        super(codigoProduto, nombreProducto, precio, stock, proveedor);
         this.fechaCaducidad = fechaCaducidad;
     }
 
