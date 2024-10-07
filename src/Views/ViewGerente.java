@@ -6,6 +6,7 @@ package Views;
 
 import Controllers.ProductoController;
 import Controllers.EmpleadoController;
+import Controllers.ClienteController;
 import java.awt.Color;
 
 /**
@@ -20,12 +21,17 @@ public class ViewGerente extends javax.swing.JFrame {
    
     ProductoController pc;
     EmpleadoController ec;
+    ClienteController cc;
     
-    public ViewGerente(ProductoController pc, EmpleadoController ec) {
+    public ViewGerente(ProductoController pc, EmpleadoController ec, ClienteController cc) {
         initComponents();
         setLocationRelativeTo(this);
+        
+        // Controladores por el momento aca en view gerente
         this.pc = pc == null?  new ProductoController(): pc;
         this.ec = pc == null?  new EmpleadoController(): ec;
+        this.cc = pc == null?  new ClienteController(): cc;
+        
         this.setResizable(false);
         //estilarElementos();
     }
@@ -171,13 +177,13 @@ public class ViewGerente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProveedoresActionPerformed
 
     private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
-        GestionProductosView vp = new GestionProductosView(pc);
+        GestionProductosView vp = new GestionProductosView(this.pc);
         vp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnProductosActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
-        GestionClientesView gc = new GestionClientesView();
+        GestionClientesView gc = new GestionClientesView(this.cc);
         gc.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnClientesActionPerformed
@@ -197,6 +203,7 @@ public class ViewGerente extends javax.swing.JFrame {
     
     /**
      * @param args the command line arguments
+     * GERENTE SERIA LA PRUEBA ESTE MAIN PARA NO LOGEAR SIEMPRE
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -225,7 +232,7 @@ public class ViewGerente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ViewGerente(null, null).setVisible(true);
+                new ViewGerente(null, null,null).setVisible(true);
             }
         });
     }

@@ -4,6 +4,9 @@
  */
 package Views;
 
+import Controllers.ClienteController;
+import Models.Cliente;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -15,24 +18,46 @@ public class GestionClientesView extends javax.swing.JFrame {
     /**
      * Creates new form GestionClientesView
      */
-    public GestionClientesView() {
+    ClienteController cc;
+
+    public GestionClientesView(ClienteController cc) {
         initComponents();
         setLocationRelativeTo(this);
         setTitle("GESTIÓN DE CLIENTES");
+
+        this.cc = cc;
+
         pintarBtnRegresar();
-        
         llenarTabla();
     }
+
     private void pintarBtnRegresar() {
         btnRegresar.setBackground(new java.awt.Color(0, 51, 102)); // Azul oscuro
         btnRegresar.setForeground(new java.awt.Color(255, 255, 255)); // Texto blanco para contraste
     }
-    
+
     private void llenarTabla() {
         DefaultTableModel tableModel = new DefaultTableModel();
-        tableModel.setColumnIdentifiers(new Object[] {"ID", "Nombre", "Telefono", "Email"});
+        tableModel.setColumnIdentifiers(new Object[]{"ID", "Nombre", "Telefono", "Email"});
+        
+        for (Cliente cliente : cc.getClientes()) {
+            tableModel.addRow(new Object[]{
+                cliente.getIdCliente(),
+                cliente.getNombreCompleto(),
+                cliente.getTelefono(),
+                cliente.getEmail(),
+            });
+        }
         tablaClientes.setModel(tableModel);
     }
+
+    private void limpiarCampos() {
+        idClienteField.setText("");
+        nombreField.setText("");
+        emailField.setText("");
+        telefonoField.setText("");
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,6 +78,8 @@ public class GestionClientesView extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        idClienteField = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaClientes = new javax.swing.JTable();
@@ -80,25 +107,32 @@ public class GestionClientesView extends javax.swing.JFrame {
         });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("ID Cliente");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3)
-                    .addComponent(nombreField)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(telefonoField)
-                    .addComponent(emailField, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -109,31 +143,48 @@ public class GestionClientesView extends javax.swing.JFrame {
                     .addComponent(btnBuscar)
                     .addComponent(btnEliminar))
                 .addGap(43, 43, 43))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel3)
+                        .addComponent(nombreField)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel2)
+                        .addComponent(telefonoField)
+                        .addComponent(emailField, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                        .addComponent(idClienteField)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(idClienteField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(telefonoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar)
                     .addComponent(btnEliminar))
-                .addGap(42, 42, 42)
+                .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditar)
                     .addComponent(btnBuscar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(43, 43, 43))
         );
 
         tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
@@ -150,6 +201,11 @@ public class GestionClientesView extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tablaClientes);
 
         btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -196,18 +252,79 @@ public class GestionClientesView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        // TODO add your handling code here:
+        try {
+            int id = Integer.parseInt(idClienteField.getText());
+        String nombre = nombreField.getText();
+        String telefono = telefonoField.getText();
+        String email = emailField.getText();
+
+        Cliente nuevoCliente = new Cliente(id, nombre, telefono, email);
+        cc.agregarCliente(nuevoCliente);
+
+        limpiarCampos();
+        llenarTabla();
+        JOptionPane.showMessageDialog(null, "¡CLIENTE AGREGADO EXITOSAMENTE!");
+        } catch(RuntimeException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void emailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_emailFieldActionPerformed
 
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        try {
+            int idCliente = Integer.parseInt(idClienteField.getText());
+            cc.eliminarCliente(idCliente);
+            llenarTabla();
+            JOptionPane.showMessageDialog(null, "¡CLIENTE ELIMINADO CORRECTAMENTE!");
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        try{
+            int id = Integer.parseInt(idClienteField.getText());
+            Cliente cliente = cc.buscarClientePorId(id);
+            
+            nombreField.setText(cliente.getNombreCompleto());
+            telefonoField.setText(cliente.getTelefono());
+            emailField.setText(cliente.getEmail());
+        }catch(RuntimeException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        try{
+            int id = Integer.parseInt(idClienteField.getText());
+            String nombre = nombreField.getText();
+            String email = emailField.getText();
+            String telefono = telefonoField.getText();
+            
+            Cliente cliente = new Cliente(id, nombre, telefono, email);
+            cc.editarCliente(cliente);
+            llenarTabla();
+            JOptionPane.showMessageDialog(null, "!CLIENTE ACTUALIZADO EXITOSAMENTE!");
+        }catch(RuntimeException e){
+            JOptionPane.showMessageDialog(null,e.getMessage());
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        ViewGerente vg = new ViewGerente(null, null, this.cc);
+        vg.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
     /**
-     * @param args the command line arguments
-     * ESTE METODO DE MAIN ES DE PRUEBA NOMÁS (Descomentar para probar
+     * @param args the command line arguments ESTE METODO DE MAIN ES DE PRUEBA
+     * NOMÁS (Descomentar para probar
      */
-    
 //    public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */
 //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -248,9 +365,11 @@ public class GestionClientesView extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JTextField emailField;
+    private javax.swing.JTextField idClienteField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
