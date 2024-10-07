@@ -180,7 +180,7 @@ public class ViewGerente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProveedoresActionPerformed
 
     private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
-        GestionProductosView vp = new GestionProductosView(this.pc);
+        GestionProductosView vp = new GestionProductosView(pc,ec,cc,pvC);
         vp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnProductosActionPerformed
