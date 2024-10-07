@@ -37,7 +37,7 @@ public class PrincipalView extends javax.swing.JFrame {
         this.ec = ec == null? new EmpleadoController() : ec;
         this.cc = cc == null? new ClienteController() : cc;
         this.pvC = pvC == null? new ProveedorController() : pvC;
-
+        
     }
    
     
@@ -129,18 +129,13 @@ public class PrincipalView extends javax.swing.JFrame {
                 ViewGerente vg = new ViewGerente(pc, ec, cc, pvC);
                 vg.setVisible(true);
                 this.dispose();
+            } else if(empleado instanceof Cajero){
+                ViewCajero vc = new ViewCajero(empleado, this.pc, this.ec, this.cc, this.pvC);
+                vc.setVisible(true);
+                this.dispose();
             }
-<<<<<<< HEAD
-        } else {
-            System.out.println(empleado);
-            System.out.println("no existe");
-=======
-        } else if(empleado instanceof Cajero){
-            ViewCajero vc = new ViewCajero(empleado, this.pc, this.ec, this.cc, this.pvC);
-            vc.setVisible(true);
-            this.dispose();
->>>>>>> main
-        }
+                
+        } 
         
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
