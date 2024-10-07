@@ -364,7 +364,7 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
         double salarioMensual = Double.parseDouble(txtSalarioMensual.getText());
 
         if (tipoEmpleado.equals("Gerente")){
-            String bonificacion = txtBonifcacion.getText();
+            double bonificacion = Double.parseDouble(txtBonifcacion.getText());
             this.ec.agregarEmpleadoGerente(idEmpleado, nombreCompleto, correo, salarioMensual, bonificacion);
         } else if(tipoEmpleado.equals("Cajero")){
             String turno = txtTurno.getText();

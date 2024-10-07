@@ -12,19 +12,20 @@ public class EmpleadoService {
     public EmpleadoService() {
         //ArrayList que sera un contenedor polimorfico para poder agregar los 3 tipos de empleados del sistema
         this.empleados = new ArrayList<>();
+        this.empleados.add(new Gerente(100, "admin", "admin@", 2000000, 0.1));        
     }
 
     //Metodo para agregar un empleado de tipo cajero (Metodo sin completar)
     public void agregarEmpleadoCajero(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno) {
-        if (buscarEmpleado(idEmpleado)) {
+        if (!buscarEmpleado(idEmpleado)) {
             Cajero cajero = new Cajero(idEmpleado, nombreCompleto, correo, salarioMensual, turno);
             this.empleados.add(cajero);
         }
     }
 
     //Metodo para agregar un empleado de tipo genrente (Metodo sin completar)
-    public void agregarEmpleadoGerente(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, String bonificacion) {
-        if (buscarEmpleado(idEmpleado)) {
+    public void agregarEmpleadoGerente(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, double bonificacion) {
+        if (!buscarEmpleado(idEmpleado)) {
             Gerente gerente = new Gerente(idEmpleado, nombreCompleto, correo, salarioMensual, bonificacion);
             this.empleados.add(gerente);
         }
@@ -32,7 +33,7 @@ public class EmpleadoService {
 
     //Metodo para agregar un empleado de tipo reponedor (Metodo sin completar)
     public void agregarEmpleadoReponedor(int idEmpleado, String nombreCompleto, String correo, double salarioMensual) {
-        if (buscarEmpleado(idEmpleado)) {
+        if (!buscarEmpleado(idEmpleado)) {
             Reponedor reponedor = new Reponedor(idEmpleado, nombreCompleto, correo, salarioMensual);
             this.empleados.add(reponedor);
         }
@@ -74,7 +75,7 @@ public class EmpleadoService {
     }
 
     //Metetodo sin completar por ahora
-    public void editarEmpleadoGerente(int idEmpleado,String nombreCompleto, String correo, double salarioMensual, String bonificacion) {
+    public void editarEmpleadoGerente(int idEmpleado,String nombreCompleto, String correo, double salarioMensual, double bonificacion) {
         for (Empleado empleado : this.empleados){
             if(empleado.getIdEmpleado() == idEmpleado){
                 if (empleado instanceof Gerente){
@@ -101,13 +102,35 @@ public class EmpleadoService {
     }
 
     //Metodo para buscar empleado, esto para poder dividir las tareas de la aplicacion
-    private boolean buscarEmpleado(int idEmpleado){
-        for(Empleado empleado : this.empleados){
-            if(empleado.getIdEmpleado() == idEmpleado){
-                return false;
+    private boolean buscarEmpleado(int idEmpleado) {
+        for (Empleado empleado : this.empleados) {
+            if (empleado.getIdEmpleado() == idEmpleado) {
+                return true; 
             }
         }
-        return true;
+        return false; 
+    }
+
+
+    
+    public Empleado iniciarSesion(int idEmpleado, String correo) {
+        if(buscarEmpleado(idEmpleado)){
+            if (correo == null) {
+                return null; 
+            }
+
+            for (Empleado empleado : this.empleados) {
+                if (empleado.getIdEmpleado() == idEmpleado && correo.equals(empleado.getCorreo())) {
+                    return empleado;
+                }
+            }
+        }
+        return null;
+    }
+
+    
+    public void defaultGerente() {
+        this.empleados.add(new Gerente(100, "admin", "admin@", 2000000, 0.1));
     }
 
     public ArrayList<Empleado> getEmpleados(){

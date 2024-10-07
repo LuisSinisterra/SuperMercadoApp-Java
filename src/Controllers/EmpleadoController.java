@@ -18,7 +18,7 @@ public class EmpleadoController {
     }
 
     //Metodo para agregar empleaado gerente
-    public void agregarEmpleadoGerente(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, String bonificacion) {
+    public void agregarEmpleadoGerente(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, double bonificacion) {
         this.empleadoService.agregarEmpleadoGerente(idEmpleado, nombreCompleto, correo, salarioMensual, bonificacion);
     }
 
@@ -32,7 +32,7 @@ public class EmpleadoController {
         //this.empleadoService.eliminarEmpleado(idEmpleado);
     }
 
-    public void editarEmpleadoGerente(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, String bonificacion) {
+    public void editarEmpleadoGerente(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, double bonificacion) {
         this.empleadoService.editarEmpleadoGerente(idEmpleado, nombreCompleto, correo, salarioMensual, bonificacion);
     }
     public void editarEmpleadoCajero(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno) {
@@ -40,6 +40,10 @@ public class EmpleadoController {
     }
     public void editarEmpleadoReponedor(int idEmpleado, String nombreCompleto, String correo, double salarioMensual) {
         this.empleadoService.editarEmpleadoReponedor(idEmpleado, nombreCompleto, correo, salarioMensual);
+    }
+    
+    public Empleado iniciarSesion(int idEmpleado, String correo) {
+        return this.empleadoService.iniciarSesion(idEmpleado, correo);
     }
 
     public ArrayList<Empleado> getEmpleados() {
