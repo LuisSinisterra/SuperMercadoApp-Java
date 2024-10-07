@@ -37,7 +37,7 @@ public class PrincipalView extends javax.swing.JFrame {
         this.ec = ec == null? new EmpleadoController() : ec;
         this.cc = cc == null? new ClienteController() : cc;
         this.pvC = pvC == null? new ProveedorController() : pvC;
-
+        
     }
    
     

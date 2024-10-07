@@ -40,25 +40,17 @@ public class EmpleadoService {
     }
 
     //Metetodo sin completar por ahora
-    /*public void eliminarEmpleado(int idEmpleado){
-
-        Empleado e;
-        boolean existeEmpleado = false;
-
-        for(Empleado empleado : this.empleados){
-            if(empleado.getIdEmpleado() == idEmpleado){
-                existeEmpleado = true;
-                e = empleado;
-            } else {
-                e = empleado;
+    public void eliminarEmpleado(int idEmpleado) throws RuntimeException {
+        for (int i = empleados.size() - 1; i >= 0; i--) {
+            Empleado empleado = empleados.get(i);
+            if (empleado.getIdEmpleado() == idEmpleado) {
+                empleados.remove(i);
+                return;
             }
         }
+        throw new RuntimeException("No se encuentra el empleado que desea eliminar");
+    }
 
-        if(existeEmpleado){
-            this.empleados.remove(e);
-        }
-
-    }*/
 
     //Metetodo sin completar por ahora
     public void editarEmpleadoCajero(int idEmpleado,String nombreCompleto, String correo, double salarioMensual, String turno) {

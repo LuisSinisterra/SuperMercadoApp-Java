@@ -34,10 +34,10 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
     public GestionEmpleadosView(ProductoController pc, EmpleadoController ec, ClienteController cc, ProveedorController pvC) {
         initComponents();
         setLocationRelativeTo(this);
-        this.pc = pc;
-        this.pvC = pvC;
-        this.ec = ec;
-        this.cc = cc;
+        this.pc = pc == null? new ProductoController() : pc;
+        this.ec = ec == null? new EmpleadoController() : ec;
+        this.cc = cc == null? new ClienteController() : cc;
+        this.pvC = pvC == null? new ProveedorController() : pvC;
         this.pintarBotones();
         this.alistarTabla();
         this.alistarBox();
@@ -417,10 +417,18 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTurnoActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        int idEmpleado = Integer.parseInt(txtIdEmpleado.getText());
-        this.ec.eliminarEmpleado(idEmpleado);
-        this.alistarTabla();
-        this.limpiarCampos();
+        try {
+            int idEmpleado = Integer.parseInt(txtIdEmpleado.getText());
+            this.ec.eliminarEmpleado(idEmpleado);
+            this.limpiarCampos();
+            this.alistarTabla();
+            JOptionPane.showMessageDialog(null, "¡EMPLEADO ELIMINADO CORRECTAMENTE!");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El ID debe ser un número entero válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
