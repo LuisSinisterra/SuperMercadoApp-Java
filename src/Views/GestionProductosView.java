@@ -87,11 +87,12 @@ public class GestionProductosView extends javax.swing.JFrame {
     public void alistarTabla(){
         DefaultTableModel modelo = new DefaultTableModel();
         
-        modelo.setColumnIdentifiers(new Object[]{"Codigo", "Nombre", "Precio", "Stock", "Tipo", "Caducidad", "TiempoAlmacen"});
+        modelo.setColumnIdentifiers(new Object[]{"Proveedor","Codigo", "Nombre", "Precio", "Stock", "Tipo", "Caducidad", "TiempoAlmacen"});
         
         for (int i = 0; i < pc.getProductos().size(); i++) {
             Producto pro = pc.getProductos().get(i);
             modelo.addRow(new Object[]{
+                pro.getProveedor().getIdProveedor(),
                 pro.getCodigoProducto(),
                 pro.getNombreProducto(),
                 pro.getPrecio(),
@@ -376,17 +377,17 @@ public class GestionProductosView extends javax.swing.JFrame {
         double precio = Double.parseDouble(precioTxt.getText());
         int stock = Integer.parseInt(stockTxt.getText());
         String extra = fechaTxt.getText();
+        Proveedor pro = pvC.buscarProveedorPorId(IdProveedor);
         
         Producto pp;
         
         if(tipo.equals("Perecedero")){
-            pp = new ProductoPerecedero(codigo,nombre,precio,stock,extra);
+            pp = new ProductoPerecedero(codigo,nombre,precio,stock,extra, pro);
         }else{
-            pp = new ProductoNoPerecedero(codigo,nombre,precio,stock,extra);
+            pp = new ProductoNoPerecedero(codigo,nombre,precio,stock,extra, pro);
         }
         
         pc.agregarProducto(pp);
-        Proveedor pro = pvC.buscarProveedorPorId(IdProveedor);
         pro.suministrarProducto(pp);
         alistarTabla();
         vaciarCampos();
@@ -414,18 +415,20 @@ public class GestionProductosView extends javax.swing.JFrame {
         double precio = Double.parseDouble(precioTxt.getText());
         int stock = Integer.parseInt(stockTxt.getText());
         String extra = fechaTxt.getText();
+        Proveedor proveedor = pc.buscarProductoCodigo(codigo).getProveedor();
         
         Producto pp;
         
         if(opcion.equals("Perecedero")){
-            pp = new ProductoPerecedero(codigo,nombre,precio,stock,extra);
+            pp = new ProductoPerecedero(codigo,nombre,precio,stock,extra, proveedor);
         }else{
-            pp = new ProductoNoPerecedero(codigo,nombre,precio,stock,extra);
+            pp = new ProductoNoPerecedero(codigo,nombre,precio,stock,extra, proveedor);
         }
         
         pc.editarProducto(pp);
         alistarTabla();
         vaciarCampos();
+
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -440,6 +443,12 @@ public class GestionProductosView extends javax.swing.JFrame {
             }
             
             if (!producto.equals(null)){
+                for (int i = 0; i < pvC.getProveedores().size(); i++) {
+                    if(pvC.getProveedores().get(i).getIdProveedor() == producto.getProveedor().getIdProveedor()){
+                        CProveedor.setSelectedIndex(i);
+                    }
+                }
+                
                 nombreTxt.setText(producto.getNombreProducto());
                 precioTxt.setText(producto.getPrecio() + "");
                 stockTxt.setText(producto.getStock() + "");
@@ -470,6 +479,8 @@ public class GestionProductosView extends javax.swing.JFrame {
                 if (pr.getCodigoProducto() == codigo) {
                     producto = pc.getProductos().get(pc.getProductos().indexOf(pr));
                     pc.getProductos().remove(producto);
+                    Proveedor proveedor = pvC.buscarProveedorPorId(producto.getProveedor().getIdProveedor());
+                    pvC.eliminarProveedor(proveedor.getIdProveedor());
                     alistarTabla();
                     vaciarCampos();
                     return;

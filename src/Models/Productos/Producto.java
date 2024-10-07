@@ -4,6 +4,8 @@
  */
 package Models.Productos;
 
+import Models.Proveedor;
+
 /**
  *
  * @author Luis Sinisterra, Simon Cruz, Leonardo Argoty
@@ -14,12 +16,14 @@ public abstract class Producto {
     private String nombreProducto;
     private double precio;
     private int stock;
+    private Proveedor proveedor;
 
-    public Producto(int codigoProduto, String nombreProducto, double precio, int stock) {
+    public Producto(int codigoProduto, String nombreProducto, double precio, int stock, Proveedor proveedor) {
         this.codigoProduto = codigoProduto;
         this.nombreProducto = nombreProducto;
         this.precio = precio;
         this.stock = stock;
+        this.proveedor = proveedor;
     }
 
 
@@ -59,6 +63,22 @@ public abstract class Producto {
     
     public int getStock(){
         return this.stock;
+    }
+
+    public int getCodigoProduto() {
+        return codigoProduto;
+    }
+
+    public void setCodigoProduto(int codigoProduto) {
+        this.codigoProduto = codigoProduto;
+    }
+
+    public Proveedor getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
     }
 
 }
