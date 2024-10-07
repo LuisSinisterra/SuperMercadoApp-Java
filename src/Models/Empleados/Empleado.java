@@ -12,7 +12,7 @@ public class Empleado {
     private int idEmpleado;
     private String nombreCompleto;
     private String correo;
-    private double salarioMensual;
+    double salarioMensual;
     
     public Empleado(int idEmpleado, String nombreCompleto, String correo, double salario){
         this.idEmpleado = idEmpleado;

@@ -29,7 +29,9 @@ public class EmpleadoService {
     public void agregarEmpleadoGerente(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, double bonificacion) throws RuntimeException {
         if (!buscarEmpleado(idEmpleado)) {
             Gerente gerente = new Gerente(idEmpleado, nombreCompleto, correo, salarioMensual, bonificacion);
+            gerente.setSalarioMensual(gerente.calcularSalario());
             this.empleados.add(gerente);
+            
             return;
         }
         throw new RuntimeException("Este gerente ya existe en el sistema");

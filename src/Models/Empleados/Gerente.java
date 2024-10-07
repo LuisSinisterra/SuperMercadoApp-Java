@@ -19,7 +19,7 @@ public class Gerente extends Empleado{
     
     @Override
     public double calcularSalario(){
-        return 0;
+        return this.salarioMensual + this.bonificacion;
     }
 
     public double getBonificacion() {
