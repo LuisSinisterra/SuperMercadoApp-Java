@@ -5,6 +5,9 @@
 package Views;
 
 import Controllers.ClienteController;
+import Controllers.EmpleadoController;
+import Controllers.ProductoController;
+import Controllers.ProveedorController;
 import Models.Cliente;
 import java.awt.Color;
 import javax.swing.JOptionPane;
@@ -19,15 +22,19 @@ public class GestionClientesView extends javax.swing.JFrame {
     /**
      * Creates new form GestionClientesView
      */
+    ProductoController pc;
+    EmpleadoController ec;
     ClienteController cc;
-
-    public GestionClientesView(ClienteController cc) {
+    ProveedorController pvC;
+    
+    public GestionClientesView(ProductoController pc, EmpleadoController ec, ClienteController cc, ProveedorController pvC) {
         initComponents();
         setLocationRelativeTo(this);
         setTitle("GESTIÓN DE CLIENTES");
-
+        this.pc = pc;
+        this.pvC = pvC;
+        this.ec = ec;
         this.cc = cc;
-
         pintarBotones();
         llenarTabla();
     }
@@ -327,7 +334,7 @@ public class GestionClientesView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        ViewGerente vg = new ViewGerente(null, null, this.cc, null);
+        ViewGerente vg = new ViewGerente(pc,ec,cc,pvC);
         vg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed

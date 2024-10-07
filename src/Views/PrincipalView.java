@@ -27,15 +27,15 @@ public class PrincipalView extends javax.swing.JFrame {
     ClienteController cc;
     ProveedorController pvC;
     
-    
-    public PrincipalView() {
+    public PrincipalView(ProductoController pc, EmpleadoController ec, ClienteController cc, ProveedorController pvC) {
         initComponents();
         this.pintarBtnIniciarSesion();
         setLocationRelativeTo(this);
-        this.pc = new ProductoController();
-        this.ec = new EmpleadoController();
-        this.cc = new ClienteController();
-        this.pvC = new ProveedorController();
+        this.pc = pc == null? new ProductoController() : pc;
+        this.ec = ec == null? new EmpleadoController() : ec;
+        this.cc = cc == null? new ClienteController() : cc;
+        this.pvC = pvC == null? new ProveedorController() : pvC;
+
     }
    
     
@@ -129,6 +129,7 @@ public class PrincipalView extends javax.swing.JFrame {
                 this.dispose();
             }
         } else {
+            System.out.println(empleado);
             System.out.println("no existe");
         }
         
@@ -164,7 +165,7 @@ public class PrincipalView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PrincipalView().setVisible(true);
+                new PrincipalView(null,null,null,null).setVisible(true);
             }
         });
     }
