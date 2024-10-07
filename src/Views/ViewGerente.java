@@ -30,10 +30,10 @@ public class ViewGerente extends javax.swing.JFrame {
         setLocationRelativeTo(this);
         
         // Controladores por el momento aca en view gerente
-        this.pc = pc == null?  new ProductoController(): pc;
-        this.ec = ec == null?  new EmpleadoController(): ec;
-        this.cc = cc == null?  new ClienteController(): cc;
-        this.pvC = pvC == null?  new ProveedorController(): pvC;
+        this.pc = new ProductoController();
+        this.ec =new EmpleadoController();
+        this.cc = new ClienteController();
+        this.pvC = new ProveedorController();
         
         this.setResizable(false);
         //estilarElementos();
@@ -186,19 +186,19 @@ public class ViewGerente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProductosActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
-        GestionClientesView gc = new GestionClientesView(this.cc);
+        GestionClientesView gc = new GestionClientesView(pc,ec,cc,pvC);
         gc.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadosActionPerformed
-        GestionEmpleadosView ge = new GestionEmpleadosView(this.ec);
+        GestionEmpleadosView ge = new GestionEmpleadosView(pc,ec,cc,pvC);
         ge.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnEmpleadosActionPerformed
 
     private void btnSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSesionActionPerformed
-        PrincipalView pv = new PrincipalView();
+        PrincipalView pv = new PrincipalView(pc,ec,cc,pvC);
         pv.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnSesionActionPerformed
