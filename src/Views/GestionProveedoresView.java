@@ -5,6 +5,7 @@
 package Views;
 
 import Controllers.ProveedorController;
+import Models.Productos.Producto;
 import Models.Proveedor;
 import java.awt.Color;
 import javax.swing.JOptionPane;
@@ -21,7 +22,6 @@ public class GestionProveedoresView extends javax.swing.JFrame {
     /**
      * Creates new form GestionProveedoresView
      */
-
     public GestionProveedoresView(ProveedorController pvC) {
         initComponents();
         setLocationRelativeTo(this);
@@ -30,6 +30,7 @@ public class GestionProveedoresView extends javax.swing.JFrame {
 
         this.pvC = pvC;
         llenarTabla();
+        llenarTablaProductosSuministrados(null);
     }
 
     private void pintarBotones() {
@@ -61,6 +62,23 @@ public class GestionProveedoresView extends javax.swing.JFrame {
         tablaProveedores.setModel(tableModel);
     }
 
+    private void llenarTablaProductosSuministrados(Proveedor proveedor) {
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.setColumnIdentifiers(new Object[]{"Cod Producto", "Nombre Producto"});
+
+        // Solo si existe, ya que al principio necesito pintar la tabla pero no hay proveedor a escoger
+        if (proveedor != null) {
+            for (Producto producto : proveedor.getProductosSuministrados()) {
+                tableModel.addRow(new Object[]{
+                    producto.getCodigoProducto(),
+                    producto.getNombreProducto()}
+                );
+            }
+        }
+
+        tablaProductosSu.setModel(tableModel);
+    }
+
     private void limpiarCampos() {
         idProveedorField.setText("");
         nombreField.setText("");
@@ -90,10 +108,13 @@ public class GestionProveedoresView extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         idProveedorField = new javax.swing.JTextField();
+        btnMostrarProductosSu = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaProveedores = new javax.swing.JTable();
         btnRegresar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaProductosSu = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -139,33 +160,42 @@ public class GestionProveedoresView extends javax.swing.JFrame {
 
         jLabel4.setText("ID Proveedor");
 
+        btnMostrarProductosSu.setText("Mostrar Productos Suministrados");
+        btnMostrarProductosSu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarProductosSuActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAgregar)
-                    .addComponent(btnEditar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnBuscar)
-                    .addComponent(btnEliminar))
-                .addGap(43, 43, 43))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(idProveedorField, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-                    .addComponent(jLabel4)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel3)
-                        .addComponent(nombreField)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel2)
-                        .addComponent(telefonoField)
-                        .addComponent(emailField, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnAgregar)
+                            .addComponent(btnEditar))
+                        .addGap(42, 42, 42)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnBuscar)
+                            .addComponent(btnEliminar)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnMostrarProductosSu)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(idProveedorField, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel3)
+                                .addComponent(nombreField)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel2)
+                                .addComponent(telefonoField)
+                                .addComponent(emailField)))))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,7 +224,9 @@ public class GestionProveedoresView extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditar)
                     .addComponent(btnBuscar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addComponent(btnMostrarProductosSu)
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         tablaProveedores.setModel(new javax.swing.table.DefaultTableModel(
@@ -217,28 +249,44 @@ public class GestionProveedoresView extends javax.swing.JFrame {
             }
         });
 
+        tablaProductosSu.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tablaProductosSu);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(268, 268, 268)
-                        .addComponent(btnRegresar))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnRegresar)
+                .addGap(48, 48, 48))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnRegresar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(29, 29, 29))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -248,14 +296,14 @@ public class GestionProveedoresView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 12, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -268,8 +316,63 @@ public class GestionProveedoresView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_emailFieldActionPerformed
 
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
+        try {
+            int idProveedor = Integer.parseInt(idProveedorField.getText());
+            pvC.eliminarProveedor(idProveedor);
+            llenarTabla();
+            JOptionPane.showMessageDialog(null, "¡PROVEEDOR ELIMINADO CORRECTAMENTE!");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El ID debe ser un número entero válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        try {
+            int id = Integer.parseInt(idProveedorField.getText());
+            String nombre = nombreField.getText();
+            String email = emailField.getText();
+            String telefono = telefonoField.getText();
+
+            Proveedor proveedor = new Proveedor(id, nombre, telefono, email);
+            pvC.editarProveedor(proveedor);
+
+            limpiarCampos();
+            llenarTabla();
+            JOptionPane.showMessageDialog(null, "!PROVEEDOR ACTUALIZADO EXITOSAMENTE!");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El ID debe ser un número entero válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        try {
+            int id = Integer.parseInt(idProveedorField.getText());
+            Proveedor proveedor = pvC.buscarProveedorPorId(id);
+
+            nombreField.setText(proveedor.getNombreEmpresa());
+            telefonoField.setText(proveedor.getTelefonoContacto());
+            emailField.setText(proveedor.getEmail());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El ID debe ser un número entero válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        ViewGerente vg = new ViewGerente(null, null, null, this.pvC);
+        vg.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         try {
             int id = Integer.parseInt(idProveedorField.getText());
             String nombre = nombreField.getText();
@@ -289,61 +392,25 @@ public class GestionProveedoresView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+    private void btnMostrarProductosSuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarProductosSuActionPerformed
         // TODO add your handling code here:
         try {
             int idProveedor = Integer.parseInt(idProveedorField.getText());
-            pvC.eliminarProveedor(idProveedor);
-            llenarTabla();
-            JOptionPane.showMessageDialog(null, "¡PROVEEDOR ELIMINADO CORRECTAMENTE!");
+            Proveedor proveedor = pvC.buscarProveedorPorId(idProveedor);
+
+            if (proveedor.getProductosSuministrados().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "El proveedor " + proveedor.getNombreEmpresa() + " no tiene productos suministrados");
+            } else {
+                llenarTablaProductosSuministrados(proveedor);
+            }
+
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "El ID debe ser un número entero válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
         } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-    }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
-        try{
-            int id = Integer.parseInt(idProveedorField.getText());
-            String nombre = nombreField.getText();
-            String email = emailField.getText();
-            String telefono = telefonoField.getText();
-            
-            Proveedor proveedor = new Proveedor(id, nombre, telefono, email);
-            pvC.editarProveedor(proveedor);
-            
-            limpiarCampos();
-            llenarTabla();
-            JOptionPane.showMessageDialog(null, "!PROVEEDOR ACTUALIZADO EXITOSAMENTE!");
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "El ID debe ser un número entero válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
-        } catch(RuntimeException e){
-            JOptionPane.showMessageDialog(null,e.getMessage());
-        }
-    }//GEN-LAST:event_btnEditarActionPerformed
-
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        try{
-            int id = Integer.parseInt(idProveedorField.getText());
-            Proveedor proveedor = pvC.buscarProveedorPorId(id);
-            
-            nombreField.setText(proveedor.getNombreEmpresa());
-            telefonoField.setText(proveedor.getTelefonoContacto());
-            emailField.setText(proveedor.getEmail());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "El ID debe ser un número entero válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
-        } catch(RuntimeException e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        ViewGerente vg = new ViewGerente(null, null, null, this.pvC);
-        vg.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnRegresarActionPerformed
+    }//GEN-LAST:event_btnMostrarProductosSuActionPerformed
 
     /**
      * @param args the command line arguments METODO MAIN DE PRUEBA (DESCOMENTAR
@@ -386,6 +453,7 @@ public class GestionProveedoresView extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnMostrarProductosSu;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JTextField emailField;
     private javax.swing.JTextField idProveedorField;
@@ -396,7 +464,9 @@ public class GestionProveedoresView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField nombreField;
+    private javax.swing.JTable tablaProductosSu;
     private javax.swing.JTable tablaProveedores;
     private javax.swing.JTextField telefonoField;
     // End of variables declaration//GEN-END:variables
