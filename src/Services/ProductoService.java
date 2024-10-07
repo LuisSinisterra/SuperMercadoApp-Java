@@ -20,7 +20,13 @@ public class ProductoService {
     }
 
     //metodo registrar(validar no mismo codigo)
-    public void agregarProducto(Producto producto) {
+    public void agregarProducto(Producto producto) throws RuntimeException{
+        for (int i = 0; i < productosDisponibles.size(); i++) {
+            if(productosDisponibles.get(i).getCodigoProducto() == producto.getCodigoProducto()){
+                throw new RuntimeException("ESTE CODIGO YA EXISTE");
+            }
+        }
+        
         for(Producto pro : productosDisponibles){
             if(pro.getCodigoProducto() == producto.getCodigoProducto()) {
                return;

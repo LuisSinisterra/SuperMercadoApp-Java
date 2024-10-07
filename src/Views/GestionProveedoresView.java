@@ -4,6 +4,9 @@
  */
 package Views;
 
+import Controllers.ClienteController;
+import Controllers.EmpleadoController;
+import Controllers.ProductoController;
 import Controllers.ProveedorController;
 import Models.Productos.Producto;
 import Models.Proveedor;
@@ -17,18 +20,24 @@ import javax.swing.table.DefaultTableModel;
  */
 public class GestionProveedoresView extends javax.swing.JFrame {
 
-    ProveedorController pvC;
 
     /**
      * Creates new form GestionProveedoresView
      */
-    public GestionProveedoresView(ProveedorController pvC) {
+    ProductoController pc;
+    EmpleadoController ec;
+    ClienteController cc;
+    ProveedorController pvC;
+    
+    public GestionProveedoresView(ProductoController pc, EmpleadoController ec, ClienteController cc, ProveedorController pvC) {
+        this.pc = pc;
+        this.pvC = pvC;
+        this.ec = ec;
+        this.cc = cc;
         initComponents();
         setLocationRelativeTo(this);
         setTitle("GESTIÓN DE PROVEEDORES");
         pintarBotones();
-
-        this.pvC = pvC;
         llenarTabla();
         llenarTablaProductosSuministrados(null);
     }
@@ -367,7 +376,7 @@ public class GestionProveedoresView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        ViewGerente vg = new ViewGerente(null, null, null, this.pvC);
+        ViewGerente vg = new ViewGerente(pc,ec,cc,pvC);
         vg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
