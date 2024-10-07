@@ -5,9 +5,12 @@
 package Views;
 
 import Controllers.ClienteController;
+import Controllers.EmpleadoController;
 import Controllers.ProductoController;
+import Controllers.ProveedorController;
 import Models.Cliente;
 import Models.Empleados.Cajero;
+import Models.Empleados.Empleado;
 import Models.Productos.Producto;
 import Models.Venta;
 import java.util.ArrayList;
@@ -21,17 +24,24 @@ public class ViewCajero extends javax.swing.JFrame {
     /**
      * Creates new form ViewCajero
      */
-    Cajero cajero;
+    Empleado cajero;
     ArrayList<Producto> carrito;
-    ProductoController pc;
-    ClienteController cc;
     
-    public ViewCajero(Cajero cajero, ProductoController pc, ClienteController cc) {
+    ProductoController pc;
+    EmpleadoController ec;
+    ClienteController cc;
+    ProveedorController pvC;
+    
+    public ViewCajero(Empleado empleado, ProductoController pc, EmpleadoController ec, ClienteController cc, ProveedorController pvC) {
         this.carrito = new ArrayList<>();
-        pc = pc;
-        cajero = cajero;
+        this.cajero = empleado;
         initComponents();
         setLocationRelativeTo(this);
+        
+        this.pc = pc == null?  new ProductoController(): pc;
+        this.ec = ec == null?  new EmpleadoController(): ec;
+        this.cc = cc == null?  new ClienteController(): cc;
+        this.pvC = pvC == null?  new ProveedorController(): pvC;
     }
 
     /**

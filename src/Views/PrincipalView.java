@@ -8,8 +8,10 @@ import Controllers.ClienteController;
 import Controllers.EmpleadoController;
 import Controllers.ProductoController;
 import Controllers.ProveedorController;
+import Models.Empleados.Cajero;
 import Models.Empleados.Gerente;
 import Models.Empleados.Empleado;
+import Views.ViewGerente;
 import java.awt.Color;
 
 /**
@@ -128,9 +130,16 @@ public class PrincipalView extends javax.swing.JFrame {
                 vg.setVisible(true);
                 this.dispose();
             }
+<<<<<<< HEAD
         } else {
             System.out.println(empleado);
             System.out.println("no existe");
+=======
+        } else if(empleado instanceof Cajero){
+            ViewCajero vc = new ViewCajero(empleado, this.pc, this.ec, this.cc, this.pvC);
+            vc.setVisible(true);
+            this.dispose();
+>>>>>>> main
         }
         
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
