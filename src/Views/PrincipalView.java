@@ -4,6 +4,12 @@
  */
 package Views;
 
+import Controllers.ClienteController;
+import Controllers.EmpleadoController;
+import Controllers.ProductoController;
+import Controllers.ProveedorController;
+import Models.Empleados.Gerente;
+import Models.Empleados.Empleado;
 import java.awt.Color;
 
 /**
@@ -15,11 +21,23 @@ public class PrincipalView extends javax.swing.JFrame {
     /**
      * Creates new form PrincipalView
      */
+    
+    ProductoController pc;
+    EmpleadoController ec;
+    ClienteController cc;
+    ProveedorController pvC;
+    
+    
     public PrincipalView() {
         initComponents();
         this.pintarBtnIniciarSesion();
         setLocationRelativeTo(this);
+        this.pc = new ProductoController();
+        this.ec = new EmpleadoController();
+        this.cc = new ClienteController();
+        this.pvC = new ProveedorController();
     }
+   
     
     private void pintarBtnIniciarSesion(){
         btnIniciarSesion.setBackground(new Color(46, 134, 193));
@@ -97,7 +115,23 @@ public class PrincipalView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        // TODO add your handling code here:
+        
+        int idEmpleado = Integer.parseInt(txtIdEmpleado.getText());
+        String correo = txtCorreo.getText();
+
+        Empleado empleado = this.ec.iniciarSesion(idEmpleado, correo);
+        System.out.println(empleado);
+
+        if(empleado != null){
+            if(empleado instanceof Gerente){
+                ViewGerente vg = new ViewGerente(pc, ec, cc, pvC);
+                vg.setVisible(true);
+                this.dispose();
+            }
+        } else {
+            System.out.println("no existe");
+        }
+        
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     /**
