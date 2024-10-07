@@ -129,12 +129,11 @@ public class PrincipalView extends javax.swing.JFrame {
                 ViewGerente vg = new ViewGerente(pc, ec, cc, pvC);
                 vg.setVisible(true);
                 this.dispose();
-            } else if(empleado instanceof Cajero){
+            } else if (empleado instanceof Cajero) {
                 ViewCajero vc = new ViewCajero(empleado, this.pc, this.ec, this.cc, this.pvC);
                 vc.setVisible(true);
                 this.dispose();
             }
-                
         } 
         
     }//GEN-LAST:event_btnIniciarSesionActionPerformed

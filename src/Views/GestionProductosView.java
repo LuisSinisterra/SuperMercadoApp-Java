@@ -14,6 +14,7 @@ import Models.Productos.ProductoPerecedero;
 import Models.Proveedor;
 import java.awt.Color;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -370,27 +371,31 @@ public class GestionProductosView extends javax.swing.JFrame {
     }//GEN-LAST:event_regresarActionPerformed
 
     private void btnSuministrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuministrarActionPerformed
-        int IdProveedor = Integer.parseInt((String)CProveedor.getSelectedItem());
-        String tipo = (String) CTipo.getSelectedItem();
-        int codigo = Integer.parseInt(codigoTxt.getText());
-        String nombre = nombreTxt.getText();
-        double precio = Double.parseDouble(precioTxt.getText());
-        int stock = Integer.parseInt(stockTxt.getText());
-        String extra = fechaTxt.getText();
-        Proveedor pro = pvC.buscarProveedorPorId(IdProveedor);
-        
-        Producto pp;
-        
-        if(tipo.equals("Perecedero")){
-            pp = new ProductoPerecedero(codigo,nombre,precio,stock,extra, pro);
-        }else{
-            pp = new ProductoNoPerecedero(codigo,nombre,precio,stock,extra, pro);
+        try{
+            String tipo = (String) CTipo.getSelectedItem();
+            int codigo = Integer.parseInt(codigoTxt.getText());
+            String nombre = nombreTxt.getText();
+            double precio = Double.parseDouble(precioTxt.getText());
+            int stock = Integer.parseInt(stockTxt.getText());
+            String extra = fechaTxt.getText();
+            int IdProveedor = Integer.parseInt((String) CProveedor.getSelectedItem());
+            Proveedor pro = pvC.buscarProveedorPorId(IdProveedor);
+
+            Producto pp;
+
+            if (tipo.equals("Perecedero")) {
+                pp = new ProductoPerecedero(codigo, nombre, precio, stock, extra, pro);
+            } else {
+                pp = new ProductoNoPerecedero(codigo, nombre, precio, stock, extra, pro);
+            }
+
+            pc.agregarProducto(pp);
+            pro.suministrarProducto(pp);
+            alistarTabla();
+            vaciarCampos();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
         }
-        
-        pc.agregarProducto(pp);
-        pro.suministrarProducto(pp);
-        alistarTabla();
-        vaciarCampos();
     }//GEN-LAST:event_btnSuministrarActionPerformed
 
     private void stockTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stockTxtActionPerformed
