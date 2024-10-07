@@ -63,13 +63,14 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
     private void alistarTabla(){
         DefaultTableModel modelo = new DefaultTableModel();
 
-        modelo.setColumnIdentifiers(new Object[]{"Id", "Nombre", "Salario", "Tipo", "Turno", "Bonificacion"});
+        modelo.setColumnIdentifiers(new Object[]{"Id", "Nombre", "Correo", "Salario", "Tipo", "Turno", "Bonificacion"});
 
         for (int i = 0; i < ec.getEmpleados().size(); i++) {
             Empleado empleado = ec.getEmpleados().get(i);
             modelo.addRow(new Object[]{
                     empleado.getIdEmpleado(),
                     empleado.getNombreCompleto(),
+                    empleado.getCorreo(),
                     empleado.getSalarioMensual(),
                     empleado.getClass().getSimpleName().equals("Cajero") ? "Cajero" : "Gerente",
                     empleado instanceof Cajero ? ((Cajero) empleado).getTurno() : "",
