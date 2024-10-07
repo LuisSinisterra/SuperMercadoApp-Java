@@ -6,6 +6,7 @@ package Views;
 
 import Controllers.ClienteController;
 import Models.Cliente;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -27,26 +28,28 @@ public class GestionClientesView extends javax.swing.JFrame {
 
         this.cc = cc;
 
-        pintarBtnRegresar();
+        pintarBotones();
         llenarTabla();
     }
 
-    private void pintarBtnRegresar() {
-        btnRegresar.setBackground(new java.awt.Color(0, 51, 102)); // Azul oscuro
-        btnRegresar.setForeground(new java.awt.Color(255, 255, 255)); // Texto blanco para contraste
+    private void pintarBotones() {
+        btnAgregar.setBackground(new Color(60, 179, 113));
+        btnBuscar.setBackground(new Color(100, 149, 237));
+        btnEditar.setBackground(new Color(255, 215, 0));
+        btnEliminar.setBackground(new Color(255, 69, 0));
+        btnRegresar.setBackground(new Color(230, 230, 250));
     }
 
     private void llenarTabla() {
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.setColumnIdentifiers(new Object[]{"ID", "Nombre", "Telefono", "Email"});
-        
+
         for (Cliente cliente : cc.getClientes()) {
             tableModel.addRow(new Object[]{
                 cliente.getIdCliente(),
                 cliente.getNombreCompleto(),
                 cliente.getTelefono(),
-                cliente.getEmail(),
-            });
+                cliente.getEmail(),});
         }
         tablaClientes.setModel(tableModel);
     }
@@ -254,17 +257,19 @@ public class GestionClientesView extends javax.swing.JFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         try {
             int id = Integer.parseInt(idClienteField.getText());
-        String nombre = nombreField.getText();
-        String telefono = telefonoField.getText();
-        String email = emailField.getText();
+            String nombre = nombreField.getText();
+            String telefono = telefonoField.getText();
+            String email = emailField.getText();
 
-        Cliente nuevoCliente = new Cliente(id, nombre, telefono, email);
-        cc.agregarCliente(nuevoCliente);
+            Cliente nuevoCliente = new Cliente(id, nombre, telefono, email);
+            cc.agregarCliente(nuevoCliente);
 
-        limpiarCampos();
-        llenarTabla();
-        JOptionPane.showMessageDialog(null, "¡CLIENTE AGREGADO EXITOSAMENTE!");
-        } catch(RuntimeException e) {
+            limpiarCampos();
+            llenarTabla();
+            JOptionPane.showMessageDialog(null, "¡CLIENTE AGREGADO EXITOSAMENTE!");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El ID debe ser un número entero válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+        } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
@@ -279,44 +284,50 @@ public class GestionClientesView extends javax.swing.JFrame {
             cc.eliminarCliente(idCliente);
             llenarTabla();
             JOptionPane.showMessageDialog(null, "¡CLIENTE ELIMINADO CORRECTAMENTE!");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El ID debe ser un número entero válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
         } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        try{
+        try {
             int id = Integer.parseInt(idClienteField.getText());
             Cliente cliente = cc.buscarClientePorId(id);
-            
+
             nombreField.setText(cliente.getNombreCompleto());
             telefonoField.setText(cliente.getTelefono());
             emailField.setText(cliente.getEmail());
-        }catch(RuntimeException e){
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El ID debe ser un número entero válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+        } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
-        try{
+        try {
             int id = Integer.parseInt(idClienteField.getText());
             String nombre = nombreField.getText();
             String email = emailField.getText();
             String telefono = telefonoField.getText();
-            
+
             Cliente cliente = new Cliente(id, nombre, telefono, email);
             cc.editarCliente(cliente);
+            
+            limpiarCampos();
             llenarTabla();
             JOptionPane.showMessageDialog(null, "!CLIENTE ACTUALIZADO EXITOSAMENTE!");
-        }catch(RuntimeException e){
-            JOptionPane.showMessageDialog(null,e.getMessage());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El ID debe ser un número entero válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        ViewGerente vg = new ViewGerente(null, null, this.cc);
+        ViewGerente vg = new ViewGerente(null, null, this.cc, null);
         vg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed

@@ -18,8 +18,25 @@ public class ProveedorService {
         proveedores = new ArrayList<Proveedor>();
     }
     
-    // Agrega proveedor default, falta configurar el id incrementable mejor
+    public ArrayList<Proveedor> getProveedores() {
+        return proveedores;
+    }
+    
     public void agregarProveedor(Proveedor proveedor) {
+        // Valida campos de proveedor
+        if(isVacioCampo(proveedor)){
+            throw new RuntimeException("FALTAN CAMPOS");
+        }
+        
+        // VALIDA EL ID Y EL EMAIL
+        for (Proveedor p : proveedores) {
+            if (p.getIdProveedor()== proveedor.getIdProveedor()) {
+                throw new RuntimeException("Lo siento, El id de este proveedor ya existe");
+            }
+            if (p.getEmail().equals(proveedor.getEmail())) {
+                throw new RuntimeException("Lo siento, El email de este proveedor ya existe");
+            }
+        }
         proveedores.add(proveedor);
     }
 
@@ -36,9 +53,20 @@ public class ProveedorService {
     
       // Edita el proveedor, segun la busqueda del id de este mismo
     public void editarProveedor(Proveedor proveedor) throws RuntimeException {
-        //proveedors.set(proveedors.indexOf(proveedor), proveedor); // esto no esta bien creo
+        // VALIDA LOS CAMPOS
+        if(isVacioCampo(proveedor)){
+            throw new RuntimeException("FALTAN CAMPOS");
+        }
+        
         Proveedor aux = buscarProveedorPorId(proveedor.getIdProveedor());
         if (aux != null) {
+            // Valida que el email no exista en otros proveedors
+            for (Proveedor p : proveedores) {
+                if (p.getEmail().equals(proveedor.getEmail())) {
+                    throw new RuntimeException("Lo siento, El email de este proveedor ya existe");
+                }
+            }
+            
             aux.setNombreEmpresa(proveedor.getNombreEmpresa());
             aux.setTelefonoContacto(proveedor.getTelefonoContacto());
             aux.setEmail(proveedor.getEmail());
@@ -49,12 +77,18 @@ public class ProveedorService {
     }
     
     // Busca Proveedor Por Id
-    public Proveedor buscarProveedorPorId(int idProveedor){
+    public Proveedor buscarProveedorPorId(int idProveedor) throws RuntimeException{
         for(Proveedor proveedor : proveedores){
             if(proveedor.getIdProveedor() == idProveedor){
                 return proveedor;
             }
         }
-        return null;
+         throw new RuntimeException("No se encuentra el Proveedor");
+    }
+    
+    public boolean isVacioCampo(Proveedor proveedor){
+        return proveedor.getEmail().trim().isEmpty() || 
+                proveedor.getNombreEmpresa().trim().isEmpty() || proveedor.getTelefonoContacto().trim().isEmpty();
+        
     }
 }

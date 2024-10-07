@@ -20,11 +20,16 @@ public class ClienteService {
     }
 
     public ArrayList<Cliente> getClientes() {
-        return this.clientes;
+        return clientes;
     }
 
     // Agrega cliente default, falta configurar el id incrementable mejor
     public void agregarCliente(Cliente cliente) throws RuntimeException {
+        // Valida campos de cliente
+        if(isVacioCampo(cliente)){
+            throw new RuntimeException("FALTAN CAMPOS");
+        }
+        
         // VALIDA EL ID Y EL EMAIL
         for (Cliente c : clientes) {
             if (c.getIdCliente() == cliente.getIdCliente()) {
@@ -51,7 +56,10 @@ public class ClienteService {
 
     // Edita el cliente, segun la busqueda del id de este mismo
     public void editarCliente(Cliente cliente) throws RuntimeException {
-        //clientes.set(clientes.indexOf(cliente), cliente); // esto no esta bien creo
+        // VALIDA LOS CAMPOS
+        if(isVacioCampo(cliente)){
+            throw new RuntimeException("FALTAN CAMPOS");
+        }
 
         Cliente aux = buscarClientePorId(cliente.getIdCliente());
         if (aux != null) {
@@ -79,5 +87,11 @@ public class ClienteService {
             }
         }
         throw new RuntimeException("No se encuentra el Cliente");
+    }
+    
+    public boolean isVacioCampo(Cliente cliente){
+        return cliente.getEmail().trim().isEmpty() || 
+                cliente.getNombreCompleto().trim().isEmpty() || cliente.getTelefono().trim().isEmpty();
+        
     }
 }
