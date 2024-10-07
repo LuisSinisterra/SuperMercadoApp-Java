@@ -6,6 +6,7 @@ package Controllers;
 
 import Models.Cliente;
 import Services.ClienteService;
+import java.util.ArrayList;
 
 /**
  *
@@ -32,5 +33,9 @@ public class ClienteController {
     
     public Cliente buscarClientePorId(int idCliente){
         return clienteService.buscarClientePorId(idCliente);
+    }
+    
+    public ArrayList<Cliente> getClientes() {
+        return clienteService.getClientes();
     }
 }

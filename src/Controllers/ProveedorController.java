@@ -6,6 +6,7 @@ package Controllers;
 
 import Models.Proveedor;
 import Services.ProveedorService;
+import java.util.ArrayList;
 
 /**
  *
@@ -32,5 +33,9 @@ public class ProveedorController {
     
     public Proveedor buscarProveedorPorId(int idProveedor){
         return proveedorService.buscarProveedorPorId(idProveedor);
+    }
+    
+    public ArrayList<Proveedor> getProveedores() {
+        return proveedorService.getProveedores();
     }
 }

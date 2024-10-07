@@ -351,7 +351,7 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        ViewGerente vg = new ViewGerente(null, this.ec);
+        ViewGerente vg = new ViewGerente(null, this.ec, null, null);
         vg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
