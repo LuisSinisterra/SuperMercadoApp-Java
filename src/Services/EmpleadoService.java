@@ -15,31 +15,31 @@ public class EmpleadoService {
         this.empleados.add(new Gerente(100, "admin", "admin@", 2000000, 0.1));        
     }
 
-    //Metodo para agregar un empleado de tipo cajero (Metodo sin completar)
-    public void agregarEmpleadoCajero(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno) {
+    public void agregarEmpleadoCajero(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno) throws RuntimeException{
         if (!buscarEmpleado(idEmpleado)) {
             Cajero cajero = new Cajero(idEmpleado, nombreCompleto, correo, salarioMensual, turno);
             this.empleados.add(cajero);
         }
+        throw new RuntimeException("Este cajero ya existe en el sistema");
     }
 
-    //Metodo para agregar un empleado de tipo genrente (Metodo sin completar)
-    public void agregarEmpleadoGerente(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, double bonificacion) {
+    public void agregarEmpleadoGerente(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, double bonificacion) throws RuntimeException{
         if (!buscarEmpleado(idEmpleado)) {
             Gerente gerente = new Gerente(idEmpleado, nombreCompleto, correo, salarioMensual, bonificacion);
             this.empleados.add(gerente);
         }
+        throw new RuntimeException("Este gerente ya existe en el sistema");
+
     }
 
-    //Metodo para agregar un empleado de tipo reponedor (Metodo sin completar)
-    public void agregarEmpleadoReponedor(int idEmpleado, String nombreCompleto, String correo, double salarioMensual) {
+    public void agregarEmpleadoReponedor(int idEmpleado, String nombreCompleto, String correo, double salarioMensual) throws RuntimeException{
         if (!buscarEmpleado(idEmpleado)) {
             Reponedor reponedor = new Reponedor(idEmpleado, nombreCompleto, correo, salarioMensual);
             this.empleados.add(reponedor);
         }
+        throw new RuntimeException("Este reponedor ya existe en el sistema");
     }
 
-    //Metetodo sin completar por ahora
     public void eliminarEmpleado(int idEmpleado) throws RuntimeException {
         for (int i = empleados.size() - 1; i >= 0; i--) {
             Empleado empleado = empleados.get(i);
@@ -52,8 +52,7 @@ public class EmpleadoService {
     }
 
 
-    //Metetodo sin completar por ahora
-    public void editarEmpleadoCajero(int idEmpleado,String nombreCompleto, String correo, double salarioMensual, String turno) {
+    public void editarEmpleadoCajero(int idEmpleado,String nombreCompleto, String correo, double salarioMensual, String turno) throws RuntimeException{
         for (Empleado empleado : this.empleados){
             if(empleado.getIdEmpleado() == idEmpleado){
                 if (empleado instanceof Cajero){
@@ -64,10 +63,11 @@ public class EmpleadoService {
                 }
             }
         }
+        throw new RuntimeException("No se encuentra el cajero que desea editar");
+
     }
 
-    //Metetodo sin completar por ahora
-    public void editarEmpleadoGerente(int idEmpleado,String nombreCompleto, String correo, double salarioMensual, double bonificacion) {
+    public void editarEmpleadoGerente(int idEmpleado,String nombreCompleto, String correo, double salarioMensual, double bonificacion) throws RuntimeException{
         for (Empleado empleado : this.empleados){
             if(empleado.getIdEmpleado() == idEmpleado){
                 if (empleado instanceof Gerente){
@@ -78,10 +78,11 @@ public class EmpleadoService {
                 }
             }
         }
+        throw new RuntimeException("No se encuentra el gerente que desea editar");
+
     }
 
-    //Metetodo sin completar por ahora
-    public void editarEmpleadoReponedor(int idEmpleado,String nombreCompleto, String correo, double salarioMensual) {
+    public void editarEmpleadoReponedor(int idEmpleado,String nombreCompleto, String correo, double salarioMensual) throws RuntimeException{
         for (Empleado empleado : this.empleados){
             if(empleado.getIdEmpleado() == idEmpleado){
                 if (empleado instanceof Reponedor){
@@ -91,9 +92,10 @@ public class EmpleadoService {
                 }
             }
         }
+        throw new RuntimeException("No se encuentra el reponedor que desea editar");
+
     }
 
-    //Metodo para buscar empleado, esto para poder dividir las tareas de la aplicacion
     private boolean buscarEmpleado(int idEmpleado) {
         for (Empleado empleado : this.empleados) {
             if (empleado.getIdEmpleado() == idEmpleado) {
@@ -118,11 +120,6 @@ public class EmpleadoService {
             }
         }
         return null;
-    }
-
-    
-    public void defaultGerente() {
-        this.empleados.add(new Gerente(100, "admin", "admin@", 2000000, 0.1));
     }
 
     public ArrayList<Empleado> getEmpleados(){

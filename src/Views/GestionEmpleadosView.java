@@ -364,24 +364,35 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        String tipoEmpleado = (String) cbxTipoEmpleado.getSelectedItem();
-        int idEmpleado = Integer.parseInt(txtIdEmpleado.getText());
-        String nombreCompleto = txtNombreCompleto.getText();
-        String correo = txtCorreo.getText();
-        double salarioMensual = Double.parseDouble(txtSalarioMensual.getText());
 
-        if (tipoEmpleado.equals("Gerente")){
-            double bonificacion = Double.parseDouble(txtBonifcacion.getText());
-            this.ec.agregarEmpleadoGerente(idEmpleado, nombreCompleto, correo, salarioMensual, bonificacion);
-        } else if(tipoEmpleado.equals("Cajero")){
-            String turno = txtTurno.getText();
-            this.ec.agregarEmpleadoCajero(idEmpleado, nombreCompleto, correo, salarioMensual, turno);
-        } else {
-            this.ec.agregarEmpleadoReponedor(idEmpleado, nombreCompleto, correo, salarioMensual);
-        }
+        String tipoEmpleado = (String) cbxTipoEmpleado.getSelectedItem();
         
-        this.alistarTabla();
-        this.limpiarCampos();
+        try {
+            int idEmpleado = Integer.parseInt(txtIdEmpleado.getText());
+            String nombreCompleto = txtNombreCompleto.getText();
+            String correo = txtCorreo.getText();
+            double salarioMensual = Double.parseDouble(txtSalarioMensual.getText());
+
+            if (tipoEmpleado.equals("Gerente")){
+                double bonificacion = Double.parseDouble(txtBonifcacion.getText());
+                this.ec.agregarEmpleadoGerente(idEmpleado, nombreCompleto, correo, salarioMensual, bonificacion);
+            } else if(tipoEmpleado.equals("Cajero")){
+                String turno = txtTurno.getText();
+                this.ec.agregarEmpleadoCajero(idEmpleado, nombreCompleto, correo, salarioMensual, turno);
+            } else {
+                this.ec.agregarEmpleadoReponedor(idEmpleado, nombreCompleto, correo, salarioMensual);
+            }
+
+            this.alistarTabla();
+            this.limpiarCampos();
+            
+            JOptionPane.showMessageDialog(null, "¡EMPLEADO AGREGADO EXITOSAMENTE!");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El ID debe ser un número entero válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
 
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -419,9 +430,9 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         try {
             int idEmpleado = Integer.parseInt(txtIdEmpleado.getText());
+            this.alistarTabla();
             this.ec.eliminarEmpleado(idEmpleado);
             this.limpiarCampos();
-            this.alistarTabla();
             JOptionPane.showMessageDialog(null, "¡EMPLEADO ELIMINADO CORRECTAMENTE!");
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "El ID debe ser un número entero válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
@@ -433,6 +444,22 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
 
+        
+        String tipoEmpleado = (String) cbxTipoEmpleado.getSelectedItem();
+        int idEmpleado = Integer.parseInt(txtIdEmpleado.getText());
+        String nombreCompleto = txtNombreCompleto.getText();
+        String correo = txtCorreo.getText();
+        double salarioMensual = Double.parseDouble(txtSalarioMensual.getText());
+        
+        if(tipoEmpleado.equals("Gerente")){
+            this.ec.agregarEmpleadoGerente(idEmpleado, nombreCompleto, correo, salarioMensual, salarioMensual);
+        } else if(tipoEmpleado.equals("Cajero")){
+            String turno = txtTurno.getText();
+            this.ec.editarEmpleadoCajero(idEmpleado, nombreCompleto, correo, salarioMensual, turno);
+        } else {
+            this.ec.editarEmpleadoReponedor(idEmpleado, nombreCompleto, correo, salarioMensual);
+        }
+        
         this.alistarTabla();
         this.limpiarCampos();     
     }//GEN-LAST:event_btnEditarActionPerformed
