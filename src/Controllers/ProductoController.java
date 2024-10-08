@@ -12,7 +12,7 @@ public class ProductoController {
         this.productoService = new ProductoService();
     }
 
-    public void agregarProducto(Producto producto) {
+    public void agregarProducto(Producto producto) throws RuntimeException{
         productoService.agregarProducto(producto);
     }
     

@@ -19,6 +19,7 @@ public class EmpleadoService {
         if (!buscarEmpleado(idEmpleado)) {
             Cajero cajero = new Cajero(idEmpleado, nombreCompleto, correo, salarioMensual, turno);
             this.empleados.add(cajero);
+            return;
         }
         throw new RuntimeException("Este cajero ya existe en el sistema");
     }
@@ -27,6 +28,8 @@ public class EmpleadoService {
         if (!buscarEmpleado(idEmpleado)) {
             Gerente gerente = new Gerente(idEmpleado, nombreCompleto, correo, salarioMensual, bonificacion);
             this.empleados.add(gerente);
+            System.out.println("pasaaa");
+            return;
         }
         throw new RuntimeException("Este gerente ya existe en el sistema");
 
@@ -36,6 +39,7 @@ public class EmpleadoService {
         if (!buscarEmpleado(idEmpleado)) {
             Reponedor reponedor = new Reponedor(idEmpleado, nombreCompleto, correo, salarioMensual);
             this.empleados.add(reponedor);
+            return;
         }
         throw new RuntimeException("Este reponedor ya existe en el sistema");
     }
@@ -60,9 +64,11 @@ public class EmpleadoService {
                     empleado.setSalarioMensual(salarioMensual);
                     empleado.setCorreo(correo);
                     ((Cajero) empleado).setTurno(turno);
+                    return;
                 }
             }
         }
+        
         throw new RuntimeException("No se encuentra el cajero que desea editar");
 
     }
@@ -75,6 +81,7 @@ public class EmpleadoService {
                     empleado.setSalarioMensual(salarioMensual);
                     empleado.setCorreo(correo);
                     ((Gerente) empleado).setBonificacion(bonificacion);
+                    return;
                 }
             }
         }
@@ -89,6 +96,7 @@ public class EmpleadoService {
                     empleado.setNombreCompleto(nombreCompleto);
                     empleado.setSalarioMensual(salarioMensual);
                     empleado.setCorreo(correo);
+                    return;
                 }
             }
         }

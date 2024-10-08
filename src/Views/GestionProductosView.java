@@ -393,7 +393,7 @@ public class GestionProductosView extends javax.swing.JFrame {
             pro.suministrarProducto(pp);
             alistarTabla();
             vaciarCampos();
-        }catch(Exception e){
+        }catch(RuntimeException e){
             JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_btnSuministrarActionPerformed
