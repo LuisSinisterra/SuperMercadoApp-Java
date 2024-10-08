@@ -19,7 +19,7 @@ public class Cajero extends Empleado{
     
     @Override
     public double calcularSalario(){
-        return 0;
+        return this.salarioMensual;
     }
 
     public String getTurno(){

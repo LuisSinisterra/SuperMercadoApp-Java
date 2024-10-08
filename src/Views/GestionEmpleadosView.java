@@ -54,7 +54,7 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
     
     private void pintarBotones(){
         btnAgregar.setBackground(new Color(60, 179, 113));
-        btnBuscar.setBackground(new Color(100, 149, 237));
+        //btnBuscar.setBackground(new Color(100, 149, 237));
         btnEditar.setBackground(new Color(255, 215, 0));
         btnEliminar.setBackground(new Color(255, 69, 0));
         btnRegresar.setBackground(new Color(230, 230, 250));
@@ -106,7 +106,6 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
         txtSalarioMensual = new javax.swing.JTextField();
         btnAgregar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        btnBuscar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
@@ -172,13 +171,6 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
             }
         });
 
-        btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
-
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -237,7 +229,6 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnAgregar)
                             .addComponent(btnEliminar)
-                            .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(22, 22, 22))))
         );
@@ -278,9 +269,7 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
                             .addComponent(txtBonifcacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(38, 38, 38)
-                        .addComponent(btnEditar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnBuscar)))
+                        .addComponent(btnEditar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -352,10 +341,6 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
     private void txtIdEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdEmpleadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdEmpleadoActionPerformed
-
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         ViewGerente vg = new ViewGerente(pc,ec,cc,pvC);
@@ -431,8 +416,10 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         try {
             int idEmpleado = Integer.parseInt(txtIdEmpleado.getText());
+            
             this.ec.eliminarEmpleado(idEmpleado);
             this.limpiarCampos();
+            this.alistarTabla();
             JOptionPane.showMessageDialog(null, "¡EMPLEADO ELIMINADO CORRECTAMENTE!");
             this.alistarTabla();
         } catch (NumberFormatException e) {
@@ -446,24 +433,27 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
 
         
+        try {
             String tipoEmpleado = (String) cbxTipoEmpleado.getSelectedItem();
-            int idEmpleado = Integer.parseInt(txtIdEmpleado.getText());
-            String nombreCompleto = txtNombreCompleto.getText();
-            String correo = txtCorreo.getText();
-            double salarioMensual = Double.parseDouble(txtSalarioMensual.getText());
-
-            if (tipoEmpleado.equals("Gerente")) {
-                this.ec.editarEmpleadoGerente(idEmpleado, nombreCompleto, correo, salarioMensual, salarioMensual);
-            } else if (tipoEmpleado.equals("Cajero")) {
-                String turno = txtTurno.getText();
-                this.ec.editarEmpleadoCajero(idEmpleado, nombreCompleto, correo, salarioMensual, turno);
-            } else {
-                this.ec.editarEmpleadoReponedor(idEmpleado, nombreCompleto, correo, salarioMensual);
-            }
-
-            this.alistarTabla();
-            this.limpiarCampos();
-
+        int idEmpleado = Integer.parseInt(txtIdEmpleado.getText());
+        String nombreCompleto = txtNombreCompleto.getText();
+        String correo = txtCorreo.getText();
+        double salarioMensual = Double.parseDouble(txtSalarioMensual.getText());
+        
+        if(tipoEmpleado.equals("Gerente")){
+            this.ec.editarEmpleadoGerente(idEmpleado, nombreCompleto, correo, salarioMensual, salarioMensual);
+        } else if(tipoEmpleado.equals("Cajero")){
+            String turno = txtTurno.getText();
+            this.ec.editarEmpleadoCajero(idEmpleado, nombreCompleto, correo, salarioMensual, turno);
+        } else {
+            this.ec.editarEmpleadoReponedor(idEmpleado, nombreCompleto, correo, salarioMensual);
+        }
+        
+        this.alistarTabla();
+        this.limpiarCampos();   
+        }  catch(RuntimeException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     /**
@@ -474,7 +464,6 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnRegresar;
