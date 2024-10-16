@@ -12,18 +12,18 @@ import Models.Proveedor;
  */
 public abstract class Producto {
     
-    private int codigoProduto;
+    private int codigoProducto;
     private String nombreProducto;
     private double precio;
     private int stock;
-    private Proveedor proveedor;
+    private int id_proveedor;
 
-    public Producto(int codigoProduto, String nombreProducto, double precio, int stock, Proveedor proveedor) {
-        this.codigoProduto = codigoProduto;
+    public Producto(int codigoProducto, String nombreProducto, double precio, int stock, int id_proveedor) {
+        this.codigoProducto = codigoProducto;
         this.nombreProducto = nombreProducto;
         this.precio = precio;
         this.stock = stock;
-        this.proveedor = proveedor;
+        this.id_proveedor = id_proveedor;
     }
 
 
@@ -33,12 +33,12 @@ public abstract class Producto {
 
     public abstract void mostrarInformacion();
     
-    public void setCodigoProdcuto(int codigoProducto){
-        this.codigoProduto = codigoProducto;
+    public void setCodigoProducto(int codigoProducto){
+        this.codigoProducto = codigoProducto;
     }
     
     public int getCodigoProducto(){
-        return this.codigoProduto;
+        return this.codigoProducto;
     }
     
     public void setNombreProducto(String nombreProducto){ 
@@ -65,20 +65,12 @@ public abstract class Producto {
         return this.stock;
     }
 
-    public int getCodigoProduto() {
-        return codigoProduto;
+    public int getIdProveedor() {
+        return id_proveedor;
     }
 
-    public void setCodigoProduto(int codigoProduto) {
-        this.codigoProduto = codigoProduto;
-    }
-
-    public Proveedor getProveedor() {
-        return proveedor;
-    }
-
-    public void setProveedor(Proveedor proveedor) {
-        this.proveedor = proveedor;
+    public void setIdProveedor(int id_proveedor) {
+        this.id_proveedor = id_proveedor;
     }
 
 }

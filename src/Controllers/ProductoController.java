@@ -31,9 +31,9 @@ public class ProductoController {
     }
 
     //buscar producto nombre
-    public Producto buscarProductoNombre(String nombre) {
+    /*public Producto buscarProductoNombre(String nombre) {
         return productoService.buscarProductoNombre(nombre);
-    }
+    }*/
 
     //buscar producto codigo
     public Producto buscarProductoCodigo(int codProducto) {
@@ -41,12 +41,12 @@ public class ProductoController {
     }
 
     //buscar producto precio
-    public Producto buscarProductoPrecio(int precio) {
+    /*public Producto buscarProductoPrecio(int precio) {
         return productoService.buscarProductoPrecio(precio);
     }
 
     //buscar producto stock
     public Producto buscarProductoStock(int stock) {
         return productoService.buscarProductoStock(stock);
-    }
+    }*/
 }

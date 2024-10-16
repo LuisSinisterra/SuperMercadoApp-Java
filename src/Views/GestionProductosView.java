@@ -43,6 +43,7 @@ public class GestionProductosView extends javax.swing.JFrame {
         estilarElementos();
         alistarBox1();
         alistarBox2();
+        alistarBoxCodigos();
     }
 
     /**
@@ -76,9 +77,21 @@ public class GestionProductosView extends javax.swing.JFrame {
         CProveedor.setModel(modelo);
     }
     
+    public void alistarBoxCodigos(){
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
+
+        modelo.addElement("");
+        
+        for (int i = 0; i < pc.getProductos().size(); i++) {
+            modelo.addElement(pc.getProductos().get(i).getCodigoProducto() + "");
+        }
+        
+        comboCodigo.setModel(modelo);
+    }
+    
     public void vaciarCampos(){
-        CTipo.setSelectedItem("");
-        codigoTxt.setText("");
+        CTipo.setSelectedIndex(0);
+        comboCodigo.setSelectedIndex(0);
         nombreTxt.setText("");
         precioTxt.setText("");
         stockTxt.setText("");
@@ -93,7 +106,7 @@ public class GestionProductosView extends javax.swing.JFrame {
         for (int i = 0; i < pc.getProductos().size(); i++) {
             Producto pro = pc.getProductos().get(i);
             modelo.addRow(new Object[]{
-                pro.getProveedor().getIdProveedor(),
+                pro.getIdProveedor(),
                 pro.getCodigoProducto(),
                 pro.getNombreProducto(),
                 pro.getPrecio(),
@@ -124,7 +137,6 @@ public class GestionProductosView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         CTipo = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        codigoTxt = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         nombreTxt = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -139,6 +151,7 @@ public class GestionProductosView extends javax.swing.JFrame {
         btnEditar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         CProveedor = new javax.swing.JComboBox<>();
+        comboCodigo = new javax.swing.JComboBox<>();
 
         btnRegresar.setText("jButton2");
 
@@ -251,6 +264,8 @@ public class GestionProductosView extends javax.swing.JFrame {
 
         CProveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        comboCodigo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -259,33 +274,31 @@ public class GestionProductosView extends javax.swing.JFrame {
                 .addGap(47, 47, 47)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(codigoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(43, 43, 43)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(43, 43, 43)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(nombreTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(precioTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(stockTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(fechaTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(62, 62, 62)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(CTipo, 0, 131, Short.MAX_VALUE)
-                                            .addComponent(CProveedor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(nombreTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(precioTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(stockTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(fechaTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(62, 62, 62)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(CTipo, 0, 131, Short.MAX_VALUE)
+                                    .addComponent(CProveedor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(comboCodigo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnSuministrar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -310,11 +323,11 @@ public class GestionProductosView extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(CTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                .addGap(26, 26, 26)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(codigoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                    .addComponent(comboCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(nombreTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -330,7 +343,7 @@ public class GestionProductosView extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(atributo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fechaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -373,7 +386,6 @@ public class GestionProductosView extends javax.swing.JFrame {
     private void btnSuministrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuministrarActionPerformed
         try{
             String tipo = (String) CTipo.getSelectedItem();
-            int codigo = Integer.parseInt(codigoTxt.getText());
             String nombre = nombreTxt.getText();
             double precio = Double.parseDouble(precioTxt.getText());
             int stock = Integer.parseInt(stockTxt.getText());
@@ -384,17 +396,18 @@ public class GestionProductosView extends javax.swing.JFrame {
             Producto pp;
 
             if (tipo.equals("Perecedero")) {
-                pp = new ProductoPerecedero(codigo, nombre, precio, stock, extra, pro);
+                pp = new ProductoPerecedero(-1, nombre, precio, stock, extra, IdProveedor);
             } else {
-                pp = new ProductoNoPerecedero(codigo, nombre, precio, stock, extra, pro);
+                pp = new ProductoNoPerecedero(-1, nombre, precio, stock, extra, IdProveedor);
             }
 
             pc.agregarProducto(pp);
-            pro.suministrarProducto(pp);
+            //pro.suministrarProducto(pp);
             alistarTabla();
             vaciarCampos();
+            alistarBoxCodigos();
         }catch(RuntimeException e){
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "EROR AL AGREGAR " + e.getMessage());
         }
     }//GEN-LAST:event_btnSuministrarActionPerformed
 
@@ -415,44 +428,37 @@ public class GestionProductosView extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         String opcion = (String) CTipo.getSelectedItem();
-        int codigo = Integer.parseInt(codigoTxt.getText());
+        int codigo = Integer.parseInt(comboCodigo.getSelectedItem() + "");
         String nombre = nombreTxt.getText();
         double precio = Double.parseDouble(precioTxt.getText());
         int stock = Integer.parseInt(stockTxt.getText());
         String extra = fechaTxt.getText();
-        Proveedor proveedor = pc.buscarProductoCodigo(codigo).getProveedor();
+        int id_proveedor = pc.buscarProductoCodigo(codigo).getIdProveedor();
         
         Producto pp;
         
         if(opcion.equals("Perecedero")){
-            pp = new ProductoPerecedero(codigo,nombre,precio,stock,extra, proveedor);
+            pp = new ProductoPerecedero(codigo,nombre,precio,stock,extra, id_proveedor);
         }else{
-            pp = new ProductoNoPerecedero(codigo,nombre,precio,stock,extra, proveedor);
+            pp = new ProductoNoPerecedero(codigo,nombre,precio,stock,extra, id_proveedor);
         }
         
         pc.editarProducto(pp);
         alistarTabla();
         vaciarCampos();
-
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         try {
-            int codigo = Integer.parseInt(codigoTxt.getText());
-
-            Producto producto = null;
-            for (Producto pr : pc.getProductos()) {
-                if (pr.getCodigoProducto() == codigo) {
-                    producto = pc.getProductos().get(pc.getProductos().indexOf(pr));
-                }
-            }
+            int codigo = Integer.parseInt(comboCodigo.getSelectedItem() + "");
+            Producto producto = pc.buscarProductoCodigo(codigo);
             
             if (!producto.equals(null)){
-                for (int i = 0; i < pvC.getProveedores().size(); i++) {
+                /*for (int i = 0; i < pvC.getProveedores().size(); i++) {
                     if(pvC.getProveedores().get(i).getIdProveedor() == producto.getProveedor().getIdProveedor()){
-                        CProveedor.setSelectedIndex(i);
+                        //CProveedor.setSelectedIndex(i);
                     }
-                }
+                }*/
                 
                 nombreTxt.setText(producto.getNombreProducto());
                 precioTxt.setText(producto.getPrecio() + "");
@@ -477,21 +483,17 @@ public class GestionProductosView extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         try {
-            int codigo = Integer.parseInt(codigoTxt.getText());
-
-            Producto producto = null;
-            for (Producto pr : pc.getProductos()) {
-                if (pr.getCodigoProducto() == codigo) {
-                    producto = pc.getProductos().get(pc.getProductos().indexOf(pr));
-                    pc.getProductos().remove(producto);
-                    Proveedor proveedor = pvC.buscarProveedorPorId(producto.getProveedor().getIdProveedor());
-                    pvC.eliminarProveedor(proveedor.getIdProveedor());
-                    alistarTabla();
-                    vaciarCampos();
-                    return;
-                }
-            }
-
+            int codigo = Integer.parseInt(comboCodigo.getSelectedItem() + "");
+            pc.eliminarProducto(codigo);
+            /*Falta gestion con proveedor
+            producto = pc.getProductos().get(pc.getProductos().indexOf(pr));
+            pc.getProductos().remove(producto);
+            Proveedor proveedor = pvC.buscarProveedorPorId(producto.getIdProveedor());
+            pvC.eliminarProveedor(proveedor.getIdProveedor());
+            */
+            alistarTabla();
+            vaciarCampos();
+            alistarBoxCodigos();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -507,7 +509,7 @@ public class GestionProductosView extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSuministrar;
-    private javax.swing.JTextField codigoTxt;
+    private javax.swing.JComboBox<String> comboCodigo;
     private javax.swing.JTextField fechaTxt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
