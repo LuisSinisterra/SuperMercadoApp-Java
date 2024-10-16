@@ -28,6 +28,7 @@ public class Empleado {
     public String getNombreCompleto() {
         return nombreCompleto;
     }
+
     public double getSalarioMensual() {
         return salarioMensual;
     }

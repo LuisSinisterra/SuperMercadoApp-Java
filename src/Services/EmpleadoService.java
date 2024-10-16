@@ -1,5 +1,6 @@
 package Services;
 
+import Dao.EmpleadoDAO;
 import Models.Empleados.Cajero;
 import Models.Empleados.Empleado;
 import Models.Empleados.Gerente;
@@ -10,10 +11,12 @@ import java.util.ArrayList;
 public class EmpleadoService {
 
     ArrayList<Empleado> empleados;
+    EmpleadoDAO empleadoDAO;
 
     public EmpleadoService() {
         //ArrayList que sera un contenedor polimorfico para poder agregar los 3 tipos de empleados del sistema
         this.empleados = new ArrayList<>();
+        this.empleadoDAO = new EmpleadoDAO();
         this.empleados.add(new Gerente(100, "admin", "admin@", 2000000, 0.1));
     }
 
