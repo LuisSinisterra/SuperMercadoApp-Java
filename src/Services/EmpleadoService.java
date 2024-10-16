@@ -77,6 +77,7 @@ public class EmpleadoService {
                 }
             }
         }
+        
         throw new RuntimeException("No se encuentra el cajero que desea editar");
     }
 

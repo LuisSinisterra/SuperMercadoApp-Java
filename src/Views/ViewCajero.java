@@ -247,12 +247,12 @@ public class ViewCajero extends javax.swing.JFrame {
         String producto =(String) CProducto.getSelectedItem();
         int cantidad = Integer.parseInt((String)CCantidad.getSelectedItem());
         
-        Producto pro = pc.buscarProductoNombre(producto);
+        /*Producto pro = pc.buscarProductoNombre(producto);
         pro.setStock(pro.getStock()-cantidad);
         
         carrito.add(pro);
         
-        /*Cliente cli = cc.buscarClientePorId(IdCliente);
+        Cliente cli = cc.buscarClientePorId(IdCliente);
         
         Venta venta = new Venta(cli, cajero);*/
         

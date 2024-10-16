@@ -350,9 +350,10 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
 
-        String tipoEmpleado = (String) cbxTipoEmpleado.getSelectedItem();
+        
         
         try {
+            String tipoEmpleado = (String) cbxTipoEmpleado.getSelectedItem();
             int idEmpleado = Integer.parseInt(txtIdEmpleado.getText());
             String nombreCompleto = txtNombreCompleto.getText();
             String correo = txtCorreo.getText();
@@ -420,6 +421,7 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
             this.limpiarCampos();
             this.alistarTabla();
             JOptionPane.showMessageDialog(null, "¡EMPLEADO ELIMINADO CORRECTAMENTE!");
+            this.alistarTabla();
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "El ID debe ser un número entero válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
         } catch (RuntimeException e) {

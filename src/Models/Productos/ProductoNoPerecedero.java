@@ -14,8 +14,8 @@ public class ProductoNoPerecedero extends Producto{
 
     private String duracionAlmacen;
 
-    public ProductoNoPerecedero(int codigoProduto, String nombreProducto, double precio, int stock, String duracionAlmacen, Proveedor proveedor) {
-        super(codigoProduto, nombreProducto, precio, stock, proveedor);
+    public ProductoNoPerecedero(int codigoProduto, String nombreProducto, double precio, int stock, String duracionAlmacen, int id_proveedor) {
+        super(codigoProduto, nombreProducto, precio, stock, id_proveedor);
         this.duracionAlmacen = duracionAlmacen;
     }
 

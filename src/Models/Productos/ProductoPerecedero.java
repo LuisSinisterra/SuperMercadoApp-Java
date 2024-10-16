@@ -14,8 +14,8 @@ public class ProductoPerecedero extends Producto{
 
     private String fechaCaducidad;
 
-    public ProductoPerecedero(int codigoProduto, String nombreProducto, double precio, int stock, String fechaCaducidad, Proveedor proveedor) {
-        super(codigoProduto, nombreProducto, precio, stock, proveedor);
+    public ProductoPerecedero(int codigoProduto, String nombreProducto, double precio, int stock, String fechaCaducidad, int id_proveedor) {
+        super(codigoProduto, nombreProducto, precio, stock, id_proveedor);
         this.fechaCaducidad = fechaCaducidad;
     }
 
