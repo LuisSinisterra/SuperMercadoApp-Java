@@ -20,34 +20,21 @@ public class EmpleadoService {
         this.empleados.add(new Gerente(100, "admin", "admin@", 2000000, 0.1));
     }
 
-    public void agregarEmpleadoCajero(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno) throws RuntimeException {
-        if (!buscarEmpleado(idEmpleado)) {
-            Cajero cajero = new Cajero(idEmpleado, nombreCompleto, correo, salarioMensual, turno);
-            this.empleados.add(cajero);
+    public void agregarEmpleado(String tipoEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno, double bonificacion) throws RuntimeException {
+        if(tipoEmpleado.equals("Gerente")) {
+            Gerente gerente = new Gerente(0, nombreCompleto, correo, salarioMensual, bonificacion);
+            this.empleadoDAO.agregarEmpleado(gerente);
+            return;
+        } else if (tipoEmpleado.equals("Cajero")) {
+            Cajero cajero = new Cajero(0, nombreCompleto, correo, salarioMensual, turno);
+            this.empleadoDAO.agregarEmpleado(cajero);
+            return;
+        } else {
+            Reponedor reponedor = new Reponedor(0, nombreCompleto, correo, salarioMensual);
+            this.empleadoDAO.agregarEmpleado(reponedor);
             return;
         }
-        throw new RuntimeException("Este cajero ya existe en el sistema");
-    }
-
-    public void agregarEmpleadoGerente(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, double bonificacion) throws RuntimeException {
-        if (!buscarEmpleado(idEmpleado)) {
-            Gerente gerente = new Gerente(idEmpleado, nombreCompleto, correo, salarioMensual, bonificacion);
-            gerente.setSalarioMensual(gerente.calcularSalario());
-            this.empleados.add(gerente);
-            
-            return;
-        }
-        throw new RuntimeException("Este gerente ya existe en el sistema");
-
-    }
-
-    public void agregarEmpleadoReponedor(int idEmpleado, String nombreCompleto, String correo, double salarioMensual) throws RuntimeException {
-        if (!buscarEmpleado(idEmpleado)) {
-            Reponedor reponedor = new Reponedor(idEmpleado, nombreCompleto, correo, salarioMensual);
-            this.empleados.add(reponedor);
-            return;
-        }
-        throw new RuntimeException("Este reponedor ya existe en el sistema");
+        throw new RuntimeException("Este empleado ya existe en el sistema");
     }
 
     public void eliminarEmpleado(int idEmpleado) throws RuntimeException {

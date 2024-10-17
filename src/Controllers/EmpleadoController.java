@@ -6,25 +6,14 @@ import Services.EmpleadoService;
 import java.util.ArrayList;
 
 public class EmpleadoController {
-    EmpleadoService empleadoService;
+    private EmpleadoService empleadoService;
 
     public EmpleadoController() {
         empleadoService = new EmpleadoService();
     }
 
-    //Metodo para agregar empleado cajero
-    public void agregarEmpleadoCajero(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno) {
-        this.empleadoService.agregarEmpleadoCajero(idEmpleado, nombreCompleto, correo, salarioMensual, turno);
-    }
-
-    //Metodo para agregar empleaado gerente
-    public void agregarEmpleadoGerente(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, double bonificacion) {
-        this.empleadoService.agregarEmpleadoGerente(idEmpleado, nombreCompleto, correo, salarioMensual, bonificacion);
-    }
-
-    //Metodo para agreagar empleado reponedor
-    public void agregarEmpleadoReponedor(int idEmpleado, String nombreCompleto, String correo, double salarioMensual) {
-        this.empleadoService.agregarEmpleadoReponedor(idEmpleado, nombreCompleto, correo, salarioMensual);
+    public void agregarEmpleado(String tipoEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno, double bonificacion) {
+        this.empleadoService.agregarEmpleado(tipoEmpleado, nombreCompleto, correo, salarioMensual, turno, bonificacion);
     }
 
     //Metodo para eliminar empleado por su id empleado
