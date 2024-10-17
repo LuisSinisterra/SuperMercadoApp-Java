@@ -350,35 +350,22 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
 
-        
-        
         try {
             String tipoEmpleado = (String) cbxTipoEmpleado.getSelectedItem();
-            int idEmpleado = Integer.parseInt(txtIdEmpleado.getText());
             String nombreCompleto = txtNombreCompleto.getText();
             String correo = txtCorreo.getText();
             double salarioMensual = Double.parseDouble(txtSalarioMensual.getText());
-
-            if (tipoEmpleado.equals("Gerente")){
-                double bonificacion = Double.parseDouble(txtBonifcacion.getText());
-                this.ec.agregarEmpleadoGerente(idEmpleado, nombreCompleto, correo, salarioMensual, bonificacion);
-            } else if(tipoEmpleado.equals("Cajero")){
-                String turno = txtTurno.getText();
-                this.ec.agregarEmpleadoCajero(idEmpleado, nombreCompleto, correo, salarioMensual, turno);
-            } else {
-                this.ec.agregarEmpleadoReponedor(idEmpleado, nombreCompleto, correo, salarioMensual);
-            }
-
+            String turno = txtTurno.getText();
+            double bonificacion = Double.parseDouble(txtBonifcacion.getText());
+            this.ec.agregarEmpleado(tipoEmpleado, nombreCompleto, correo, salarioMensual, turno, bonificacion);
             this.alistarTabla();
             this.limpiarCampos();
-            
             JOptionPane.showMessageDialog(null, "¡EMPLEADO AGREGADO EXITOSAMENTE!");
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "El ID debe ser un número entero válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
         } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-
 
     }//GEN-LAST:event_btnAgregarActionPerformed
 

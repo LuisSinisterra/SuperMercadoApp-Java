@@ -20,6 +20,19 @@ public class EmpleadoService {
         this.empleados.add(new Gerente(100, "admin", "admin@", 2000000, 0.1));
     }
 
+    public void agregarEmpleado(String tipoEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno, double bonificacion) {
+        if(tipoEmpleado.equals("Gerente")) {
+            Gerente gerente = new Gerente(0, nombreCompleto, correo, salarioMensual, bonificacion);
+            this.empleadoDAO.agregarEmpleado(gerente);
+        } else if (tipoEmpleado.equals("Cajero")) {
+            Cajero cajero = new Cajero(0, nombreCompleto, correo, salarioMensual, turno);
+            this.empleadoDAO.agregarEmpleado(cajero);
+        } else {
+            Reponedor reponedor = new Reponedor(0, nombreCompleto, correo, salarioMensual);
+            this.empleadoDAO.agregarEmpleado(reponedor);
+        }
+    }
+
     public void agregarEmpleadoCajero(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno) throws RuntimeException {
         if (!buscarEmpleado(idEmpleado)) {
             Cajero cajero = new Cajero(idEmpleado, nombreCompleto, correo, salarioMensual, turno);
