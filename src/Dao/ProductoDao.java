@@ -60,9 +60,9 @@ public class ProductoDao {
         }
     }
     
-    public ArrayList<Producto> getProductos(){
+    public ArrayList<Producto> getProductos(String criterio){
         ArrayList<Producto> productos = new ArrayList<>();
-        String sql = "SELECT * FROM Productos";
+        String sql = "SELECT * FROM Productos ORDER BY " + criterio;
         
         try(Connection con = dbc.connect();
                 PreparedStatement pstmt = con.prepareStatement(sql)){
@@ -102,7 +102,9 @@ public class ProductoDao {
     }
     
     public void editarProducto(int id, Producto producto) {
-        String sql = "UPDATE Productos SET nombre = ?, precio = ?, stock = ? , id_proveedor = ? WHERE codigo_producto = ?";
+        String sql = "UPDATE Productos SET nombre = ?, precio = ?, stock = ? , id_proveedor = ?, caducidad = ?, tiempo_almacen = ? "
+                + "WHERE codigo_producto = ?";
+      
 
         try (Connection con = dbc.connect(); 
                 PreparedStatement pstmt = con.prepareStatement(sql);) {
@@ -111,7 +113,15 @@ public class ProductoDao {
             pstmt.setDouble(2, producto.getPrecio());
             pstmt.setInt(3, producto.getStock());
             pstmt.setInt(4, producto.getIdProveedor());
-            pstmt.setInt(5, producto.getCodigoProducto());
+            
+            if (producto instanceof ProductoPerecedero) {
+                pstmt.setString(5, ((ProductoPerecedero) producto).getFechaCaducidad());
+                pstmt.setString(6, "");
+            }else{
+                pstmt.setString(5, "");
+                pstmt.setString(6, ((ProductoNoPerecedero) producto).getDuracionAlmacen());
+            }
+            pstmt.setInt(7, producto.getCodigoProducto());
 
             pstmt.executeUpdate();
         } catch (SQLException e) {

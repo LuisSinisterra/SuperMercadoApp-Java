@@ -16,8 +16,8 @@ public class ProductoController {
         productoService.agregarProducto(producto);
     }
     
-    public ArrayList<Producto> getProductos(){
-        return productoService.getProductos();
+    public ArrayList<Producto> getProductos(int criterio){
+        return productoService.getProductos(criterio);
     }
 
     //actualizar
