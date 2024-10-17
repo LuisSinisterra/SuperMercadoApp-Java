@@ -16,21 +16,6 @@ public class EmpleadoController {
         this.empleadoService.agregarEmpleado(tipoEmpleado, nombreCompleto, correo, salarioMensual, turno, bonificacion);
     }
 
-    //Metodo para agregar empleado cajero
-    public void agregarEmpleadoCajero(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno) {
-        this.empleadoService.agregarEmpleadoCajero(idEmpleado, nombreCompleto, correo, salarioMensual, turno);
-    }
-
-    //Metodo para agregar empleaado gerente
-    public void agregarEmpleadoGerente(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, double bonificacion) {
-        this.empleadoService.agregarEmpleadoGerente(idEmpleado, nombreCompleto, correo, salarioMensual, bonificacion);
-    }
-
-    //Metodo para agreagar empleado reponedor
-    public void agregarEmpleadoReponedor(int idEmpleado, String nombreCompleto, String correo, double salarioMensual) {
-        this.empleadoService.agregarEmpleadoReponedor(idEmpleado, nombreCompleto, correo, salarioMensual);
-    }
-
     //Metodo para eliminar empleado por su id empleado
     public void eliminarEmpleado(int idEmpleado) {
         this.empleadoService.eliminarEmpleado(idEmpleado);
