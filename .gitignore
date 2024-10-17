@@ -2,4 +2,4 @@
 /build/
 /.idea/
 /out/
-/SuperMercadoApp-Java.iml/
+*.iml
