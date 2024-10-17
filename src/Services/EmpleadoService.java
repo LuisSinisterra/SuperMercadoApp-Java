@@ -36,13 +36,12 @@ public class EmpleadoService {
     }
 
     public void eliminarEmpleado(int idEmpleado) throws RuntimeException {
-        for (int i = empleados.size() - 1; i >= 0; i--) {
-            Empleado empleado = empleados.get(i);
-            if (empleado.getIdEmpleado() == idEmpleado) {
-                empleados.remove(i);
-                return;
-            }
+
+        for (Empleado empleado : this.empleados) {
+            this.empleadoDAO.eliminarEmpleado(idEmpleado);
+            return;
         }
+
         throw new RuntimeException("No se encuentra el empleado que desea eliminar");
     }
 
@@ -137,7 +136,7 @@ public class EmpleadoService {
     }
 
     public ArrayList<Empleado> getEmpleados() {
-        return empleados;
+        return this.empleadoDAO.getEmpleados();
     }
 
 }

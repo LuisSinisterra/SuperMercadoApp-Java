@@ -45,16 +45,22 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
     }
 
     public void alistarBox(){
-        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
-        modelo.addElement("Reponedor");
-        modelo.addElement("Gerente");
-        modelo.addElement("Cajero");
-        cbxTipoEmpleado.setModel(modelo);
+        DefaultComboBoxModel<String> modeloTipoEmpleado = new DefaultComboBoxModel<>();
+        modeloTipoEmpleado.addElement("Reponedor");
+        modeloTipoEmpleado.addElement("Gerente");
+        modeloTipoEmpleado.addElement("Cajero");
+        cbxTipoEmpleado.setModel(modeloTipoEmpleado);
+
+        DefaultComboBoxModel<String> modeloIdEmpleado = new DefaultComboBoxModel<>();
+        for(Empleado empleado : this.ec.getEmpleados()){
+            modeloIdEmpleado.addElement(String.valueOf(empleado.getIdEmpleado()));
+        }
+        cbxIdEmpleado.setModel(modeloIdEmpleado);
     }
     
     private void pintarBotones(){
         btnAgregar.setBackground(new Color(60, 179, 113));
-        //btnBuscar.setBackground(new Color(100, 149, 237));
+        btnBuscar.setBackground(new Color(100, 149, 237));
         btnEditar.setBackground(new Color(255, 215, 0));
         btnEliminar.setBackground(new Color(255, 69, 0));
         btnRegresar.setBackground(new Color(230, 230, 250));
@@ -73,8 +79,8 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
                     empleado.getCorreo(),
                     empleado.getSalarioMensual(),
                     empleado.getClass().getSimpleName().equals("Cajero") ? "Cajero" : "Gerente",
-                    empleado instanceof Cajero ? ((Cajero) empleado).getTurno() : "",
-                    empleado instanceof Gerente ? ((Gerente) empleado).getBonificacion() : ""
+                    empleado instanceof Cajero ? ((Cajero) empleado).getTurno() : "No aplica",
+                    empleado instanceof Gerente ? ((Gerente) empleado).getBonificacion() : 0.0
             });
         }
         tabla.setModel(modelo);
@@ -100,7 +106,6 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtIdEmpleado = new javax.swing.JTextField();
         txtNombreCompleto = new javax.swing.JTextField();
         txtCorreo = new javax.swing.JTextField();
         txtSalarioMensual = new javax.swing.JTextField();
@@ -114,6 +119,8 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txtTurno = new javax.swing.JTextField();
         txtBonifcacion = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+        cbxIdEmpleado = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
@@ -150,12 +157,6 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
         jLabel3.setText("Nombre completo");
 
         jLabel4.setText("Correo");
-
-        txtIdEmpleado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdEmpleadoActionPerformed(evt);
-            }
-        });
 
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -197,6 +198,10 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
             }
         });
 
+        btnBuscar.setText("Buscar");
+
+        cbxIdEmpleado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -207,7 +212,7 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jSeparator1)
                         .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel5)
@@ -223,13 +228,14 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
                             .addComponent(txtBonifcacion)
                             .addComponent(txtCorreo, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtNombreCompleto)
-                            .addComponent(txtIdEmpleado, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cbxTipoEmpleado, javax.swing.GroupLayout.Alignment.TRAILING, 0, 533, Short.MAX_VALUE))
+                            .addComponent(cbxTipoEmpleado, javax.swing.GroupLayout.Alignment.TRAILING, 0, 533, Short.MAX_VALUE)
+                            .addComponent(cbxIdEmpleado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(59, 59, 59)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnAgregar)
                             .addComponent(btnEliminar)
-                            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(22, 22, 22))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -242,8 +248,8 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtIdEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAgregar))
+                    .addComponent(btnAgregar)
+                    .addComponent(cbxIdEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -269,7 +275,9 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
                             .addComponent(txtBonifcacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(38, 38, 38)
-                        .addComponent(btnEditar)))
+                        .addComponent(btnEditar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBuscar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -338,10 +346,6 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtIdEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdEmpleadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdEmpleadoActionPerformed
-
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         ViewGerente vg = new ViewGerente(pc,ec,cc,pvC);
         vg.setVisible(true);
@@ -360,6 +364,7 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
             this.ec.agregarEmpleado(tipoEmpleado, nombreCompleto, correo, salarioMensual, turno, bonificacion);
             this.alistarTabla();
             this.limpiarCampos();
+            this.alistarBox();
             JOptionPane.showMessageDialog(null, "¡EMPLEADO AGREGADO EXITOSAMENTE!");
         } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -368,7 +373,6 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void limpiarCampos(){
-        txtIdEmpleado.setText("");
         txtNombreCompleto.setText("");
         txtCorreo.setText("");
         txtSalarioMensual.setText("");
@@ -400,13 +404,11 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         try {
-            int idEmpleado = Integer.parseInt(txtIdEmpleado.getText());
-            
+            int idEmpleado = Integer.parseInt((String) cbxIdEmpleado.getSelectedItem());
             this.ec.eliminarEmpleado(idEmpleado);
             this.limpiarCampos();
             this.alistarTabla();
             JOptionPane.showMessageDialog(null, "¡EMPLEADO ELIMINADO CORRECTAMENTE!");
-            this.alistarTabla();
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "El ID debe ser un número entero válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
         } catch (RuntimeException e) {
@@ -420,10 +422,10 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
         
         try {
             String tipoEmpleado = (String) cbxTipoEmpleado.getSelectedItem();
-        int idEmpleado = Integer.parseInt(txtIdEmpleado.getText());
-        String nombreCompleto = txtNombreCompleto.getText();
-        String correo = txtCorreo.getText();
-        double salarioMensual = Double.parseDouble(txtSalarioMensual.getText());
+            int idEmpleado = Integer.parseInt((String) cbxIdEmpleado.getSelectedItem());
+            String nombreCompleto = txtNombreCompleto.getText();
+            String correo = txtCorreo.getText();
+            double salarioMensual = Double.parseDouble(txtSalarioMensual.getText());
         
         if(tipoEmpleado.equals("Gerente")){
             this.ec.editarEmpleadoGerente(idEmpleado, nombreCompleto, correo, salarioMensual, salarioMensual);
@@ -449,9 +451,11 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnRegresar;
+    private javax.swing.JComboBox<String> cbxIdEmpleado;
     private javax.swing.JComboBox<String> cbxTipoEmpleado;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JDialog jDialog1;
@@ -473,7 +477,6 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
     private javax.swing.JTable tabla;
     private javax.swing.JTextField txtBonifcacion;
     private javax.swing.JTextField txtCorreo;
-    private javax.swing.JTextField txtIdEmpleado;
     private javax.swing.JTextField txtNombreCompleto;
     private javax.swing.JTextField txtSalarioMensual;
     private javax.swing.JTextField txtTurno;
