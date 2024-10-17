@@ -6,10 +6,14 @@ import Services.EmpleadoService;
 import java.util.ArrayList;
 
 public class EmpleadoController {
-    EmpleadoService empleadoService;
+    private EmpleadoService empleadoService;
 
     public EmpleadoController() {
         empleadoService = new EmpleadoService();
+    }
+
+    public void agregarEmpleado(String tipoEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno, double bonificacion) {
+        this.empleadoService.agregarEmpleado(tipoEmpleado, nombreCompleto, correo, salarioMensual, turno, bonificacion);
     }
 
     //Metodo para agregar empleado cajero
