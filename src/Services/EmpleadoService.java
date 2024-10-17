@@ -24,17 +24,15 @@ public class EmpleadoService {
         if(tipoEmpleado.equals("Gerente")) {
             Gerente gerente = new Gerente(0, nombreCompleto, correo, salarioMensual, bonificacion);
             this.empleadoDAO.agregarEmpleado(gerente);
-            return;
         } else if (tipoEmpleado.equals("Cajero")) {
             Cajero cajero = new Cajero(0, nombreCompleto, correo, salarioMensual, turno);
             this.empleadoDAO.agregarEmpleado(cajero);
-            return;
-        } else {
+        } else if (tipoEmpleado.equals("Reponedor")) {
             Reponedor reponedor = new Reponedor(0, nombreCompleto, correo, salarioMensual);
             this.empleadoDAO.agregarEmpleado(reponedor);
-            return;
+        } else {
+            throw new RuntimeException("Tipo de empleado no válido: " + tipoEmpleado);
         }
-        throw new RuntimeException("Este empleado ya existe en el sistema");
     }
 
     public void eliminarEmpleado(int idEmpleado) throws RuntimeException {

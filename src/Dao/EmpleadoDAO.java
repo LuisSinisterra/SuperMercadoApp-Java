@@ -13,7 +13,7 @@ public class EmpleadoDAO {
     private DataBaseConnector dbc = new DataBaseConnector();
 
     public void agregarEmpleado(Empleado empleado) {
-        String sql = "INSERT INTO Productos (nombre_completo, correo, salario, tipo_empleado, turno, bonificacion) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO Empleados (nombre_completo, correo, salario, tipo_empleado, turno, bonificacion)" + " VALUES (?,?,?,?,?,?)";
         try(Connection con = dbc.connect();
             PreparedStatement pstmt = con.prepareStatement(sql)){
 
@@ -36,6 +36,7 @@ public class EmpleadoDAO {
             }
 
             pstmt.executeUpdate();
+            System.out.println("LLego");
         }catch(SQLException e){
             System.out.println("FALLO AL AGREGAR UN EMPLEADO " + e.getMessage());
         }

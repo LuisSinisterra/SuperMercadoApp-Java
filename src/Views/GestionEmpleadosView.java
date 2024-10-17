@@ -355,14 +355,12 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
             String nombreCompleto = txtNombreCompleto.getText();
             String correo = txtCorreo.getText();
             double salarioMensual = Double.parseDouble(txtSalarioMensual.getText());
-            String turno = txtTurno.getText();
-            double bonificacion = Double.parseDouble(txtBonifcacion.getText());
+            String turno = (!txtTurno.getText().isEmpty()) ? txtTurno.getText() : "";
+            double bonificacion = (!txtBonifcacion.getText().isEmpty()) ? Double.parseDouble(txtBonifcacion.getText()) : 0.0;
             this.ec.agregarEmpleado(tipoEmpleado, nombreCompleto, correo, salarioMensual, turno, bonificacion);
             this.alistarTabla();
             this.limpiarCampos();
             JOptionPane.showMessageDialog(null, "¡EMPLEADO AGREGADO EXITOSAMENTE!");
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "El ID debe ser un número entero válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
         } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
