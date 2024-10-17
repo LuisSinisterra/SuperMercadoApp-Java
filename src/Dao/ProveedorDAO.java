@@ -103,7 +103,7 @@ public class ProveedorDAO {
 
             proveedor = new Proveedor(idProveedor, nombre, telefono, email);
         }catch(SQLException e){
-            System.out.println("FALLO EN buscarProveedorCodigo " + e.getMessage());
+            System.out.println("FALLO EN BUSCAR PROVEEDOR POR ID " + e.getMessage());
         }
         return proveedor;
     }
