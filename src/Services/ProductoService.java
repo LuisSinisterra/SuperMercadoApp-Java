@@ -69,8 +69,9 @@ public class ProductoService {
         
     }*/
     
-    public ArrayList<Producto> getProductos(){
-        return pd.getProductos();
+    public ArrayList<Producto> getProductos(int criterio){
+        String buffer = criterio == 0? "codigo_producto" : criterio == 1? "nombre": criterio == 2? "precio":"stock";
+        return pd.getProductos(buffer);
     }
 
 }
