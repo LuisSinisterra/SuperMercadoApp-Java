@@ -9,7 +9,11 @@ import Controllers.EmpleadoController;
 import Controllers.ProductoController;
 import Controllers.ProveedorController;
 import Models.Cliente;
+
 import java.awt.Color;
+
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -31,12 +35,15 @@ public class GestionClientesView extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(this);
         setTitle("GESTIÓN DE CLIENTES");
+        
         this.pc = pc;
         this.pvC = pvC;
         this.ec = ec;
         this.cc = cc;
+        
         pintarBotones();
         llenarTabla();
+        alistarIdsCombobox();
     }
 
     private void pintarBotones() {
@@ -50,7 +57,7 @@ public class GestionClientesView extends javax.swing.JFrame {
     private void llenarTabla() {
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.setColumnIdentifiers(new Object[]{"ID", "Nombre", "Telefono", "Email"});
-
+        
         for (Cliente cliente : cc.getClientes()) {
             tableModel.addRow(new Object[]{
                 cliente.getIdCliente(),
@@ -58,11 +65,21 @@ public class GestionClientesView extends javax.swing.JFrame {
                 cliente.getTelefono(),
                 cliente.getEmail(),});
         }
+        
         tablaClientes.setModel(tableModel);
+    }
+    
+    private void alistarIdsCombobox() {
+        DefaultComboBoxModel<String> comboBoxIdsModel = new DefaultComboBoxModel<>();
+        for (Cliente cliente : cc.getClientes()) {
+            comboBoxIdsModel.addElement(cliente.getIdCliente() + "");
+        }
+        
+        idComboBox.setModel(comboBoxIdsModel);
     }
 
     private void limpiarCampos() {
-        idClienteField.setText("");
+        idComboBox.setSelectedIndex(0);
         nombreField.setText("");
         emailField.setText("");
         telefonoField.setText("");
@@ -89,7 +106,7 @@ public class GestionClientesView extends javax.swing.JFrame {
         btnEditar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        idClienteField = new javax.swing.JTextField();
+        idComboBox = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaClientes = new javax.swing.JTable();
@@ -139,62 +156,68 @@ public class GestionClientesView extends javax.swing.JFrame {
 
         jLabel4.setText("ID Cliente");
 
+        idComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAgregar)
-                    .addComponent(btnEditar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnBuscar)
-                    .addComponent(btnEliminar))
-                .addGap(43, 43, 43))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel3)
-                        .addComponent(nombreField)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel2)
-                        .addComponent(telefonoField)
-                        .addComponent(emailField, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-                        .addComponent(idClienteField)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(84, 84, 84)
+                        .addComponent(btnEliminar))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel3)
+                                .addComponent(nombreField)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel2)
+                                .addComponent(telefonoField)
+                                .addComponent(emailField, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(idComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(51, 51, 51)
+                                    .addComponent(btnAgregar)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnEditar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                                .addComponent(btnBuscar)))))
+                .addGap(35, 35, 35))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(idClienteField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
+                .addGap(15, 15, 15)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(telefonoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnAgregar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAgregar)
-                    .addComponent(btnEliminar))
-                .addGap(32, 32, 32)
+                    .addComponent(jLabel4)
+                    .addComponent(idComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addComponent(btnEliminar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditar)
                     .addComponent(btnBuscar))
-                .addGap(43, 43, 43))
+                .addGap(42, 42, 42))
         );
 
         tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
@@ -226,7 +249,7 @@ public class GestionClientesView extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnRegresar)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -235,7 +258,7 @@ public class GestionClientesView extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnRegresar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -263,16 +286,17 @@ public class GestionClientesView extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         try {
-            int id = Integer.parseInt(idClienteField.getText());
             String nombre = nombreField.getText();
             String telefono = telefonoField.getText();
             String email = emailField.getText();
 
-            Cliente nuevoCliente = new Cliente(id, nombre, telefono, email);
+            Cliente nuevoCliente = new Cliente(0, nombre, telefono, email);
             cc.agregarCliente(nuevoCliente);
 
             limpiarCampos();
             llenarTabla();
+            alistarIdsCombobox();
+            
             JOptionPane.showMessageDialog(null, "¡CLIENTE AGREGADO EXITOSAMENTE!");
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "El ID debe ser un número entero válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
@@ -287,9 +311,11 @@ public class GestionClientesView extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         try {
-            int idCliente = Integer.parseInt(idClienteField.getText());
+            int idCliente = Integer.parseInt(idComboBox.getSelectedItem() + "");
             cc.eliminarCliente(idCliente);
+            
             llenarTabla();
+            alistarIdsCombobox();
             JOptionPane.showMessageDialog(null, "¡CLIENTE ELIMINADO CORRECTAMENTE!");
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "El ID debe ser un número entero válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
@@ -300,7 +326,7 @@ public class GestionClientesView extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         try {
-            int id = Integer.parseInt(idClienteField.getText());
+            int id = Integer.parseInt(idComboBox.getSelectedItem() + "");
             Cliente cliente = cc.buscarClientePorId(id);
 
             nombreField.setText(cliente.getNombreCompleto());
@@ -315,7 +341,7 @@ public class GestionClientesView extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         try {
-            int id = Integer.parseInt(idClienteField.getText());
+            int id = Integer.parseInt(idComboBox.getSelectedItem() + "");
             String nombre = nombreField.getText();
             String email = emailField.getText();
             String telefono = telefonoField.getText();
@@ -383,7 +409,7 @@ public class GestionClientesView extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JTextField emailField;
-    private javax.swing.JTextField idClienteField;
+    private javax.swing.JComboBox<String> idComboBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
