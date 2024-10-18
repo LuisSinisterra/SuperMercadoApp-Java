@@ -5,8 +5,11 @@
 package Services;
 
 import Dao.ProveedorDAO;
+import Helpers.HelperFunctions;
 import java.util.ArrayList;
+
 import Models.Proveedor;
+import Models.Productos.Producto;
 
 /**
  *
@@ -14,7 +17,6 @@ import Models.Proveedor;
  */
 public class ProveedorService {
 
-    //ArrayList<Proveedor> proveedores;
     private ProveedorDAO proveedorDAO;
 
     public ProveedorService() {
@@ -31,7 +33,7 @@ public class ProveedorService {
             throw new RuntimeException("FALTAN CAMPOS");
         }
         
-        if (!esEmailValido(proveedor.getEmail())) {
+        if (!HelperFunctions.esEmailValido(proveedor.getEmail())) {
             throw new RuntimeException("El email debe ser de un formato válido");
         }
         proveedorDAO.agregarProveedor(proveedor);
@@ -49,30 +51,26 @@ public class ProveedorService {
             throw new RuntimeException("FALTAN CAMPOS");
         }
         
-        if (!esEmailValido(proveedor.getEmail())) {
+        if (!HelperFunctions.esEmailValido(proveedor.getEmail())) {
             throw new RuntimeException("El email debe ser de un formato válido");
         }
         
         proveedorDAO.editarProveedor(proveedor);
-
     }
 
     // Busca Proveedor Por Id
     public Proveedor buscarProveedorPorId(int idProveedor) {
         return proveedorDAO.buscarProveedorId(idProveedor);
     }
+    
+    // Busca Productos por Id Proveedor
+    public ArrayList<Producto> buscarProductosProveedor(int idProveedor) {
+        return proveedorDAO.buscarProductosProveedor(idProveedor);
+    }
 
-    public boolean isVacioCampo(Proveedor proveedor) {
+    private boolean isVacioCampo(Proveedor proveedor) {
         return proveedor.getEmail().trim().isEmpty()
                 || proveedor.getNombreEmpresa().trim().isEmpty() || proveedor.getTelefonoContacto().trim().isEmpty();
 
-    }
-    private boolean esEmailValido(String email) {
-        // Verifica que el email contenga '@' y '.' después del '@'
-        int indexArroba = email.indexOf('@');
-        int indexPunto = email.lastIndexOf('.');
-
-        // Debe tener un '@', un '.' después del '@', y algo antes y después de esos caracteres
-        return indexArroba > 0 && indexPunto > indexArroba + 1 && indexPunto < email.length() - 1;
     }
 }
