@@ -10,14 +10,13 @@ import java.util.ArrayList;
 
 public class EmpleadoService {
 
-    ArrayList<Empleado> empleados;
     EmpleadoDAO empleadoDAO;
+    ArrayList<Empleado> empleados;
 
     public EmpleadoService() {
         //ArrayList que sera un contenedor polimorfico para poder agregar los 3 tipos de empleados del sistema
-        this.empleados = new ArrayList<>();
         this.empleadoDAO = new EmpleadoDAO();
-        this.empleados.add(new Gerente(100, "admin", "admin@", 2000000, 0.1));
+        this.empleados = this.empleadoDAO.getEmpleados();
     }
 
     public void agregarEmpleado(String tipoEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno, double bonificacion) throws RuntimeException {
@@ -31,105 +30,37 @@ public class EmpleadoService {
             Reponedor reponedor = new Reponedor(0, nombreCompleto, correo, salarioMensual);
             this.empleadoDAO.agregarEmpleado(reponedor);
         } else {
-            throw new RuntimeException("Tipo de empleado no válido: " + tipoEmpleado);
+            throw new RuntimeException("Tipo de empleado no válido");
         }
     }
 
     public void eliminarEmpleado(int idEmpleado) throws RuntimeException {
-
         for (Empleado empleado : this.empleados) {
             this.empleadoDAO.eliminarEmpleado(idEmpleado);
             return;
         }
-
         throw new RuntimeException("No se encuentra el empleado que desea eliminar");
     }
 
-    public void editarEmpleadoCajero(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno) throws RuntimeException {
-        for (Empleado empleado : this.empleados) {
-            System.out.println("Revisando empleado con ID: " + empleado.getIdEmpleado());
-
-            if (empleado.getIdEmpleado() == idEmpleado) {
-                System.out.println("Empleado encontrado: " + empleado.getNombreCompleto());
-
-                if (empleado instanceof Cajero) {
-                    empleado.setNombreCompleto(nombreCompleto);
-                    empleado.setSalarioMensual(salarioMensual);
-                    empleado.setCorreo(correo);
-                    ((Cajero) empleado).setTurno(turno);
-                    System.out.println("Empleado editado con éxito: " + nombreCompleto);
-                    return;
-                } else {
-                    System.out.println("El empleado no es un cajero.");
-                }
-            }
+    public void editarEmpleado(String tipoEmpleado, int idEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno, double bonificacion) throws RuntimeException {
+        if(tipoEmpleado.equals("Gerente")) {
+            this.empleadoDAO.editarEmpleado(idEmpleado, new Gerente(0, nombreCompleto, correo, salarioMensual, bonificacion));
+        } else if (tipoEmpleado.equals("Cajero")) {
+            this.empleadoDAO.editarEmpleado(idEmpleado, new Cajero(0, nombreCompleto, correo, salarioMensual, turno));
+        } else {
+            this.empleadoDAO.editarEmpleado(idEmpleado, new Reponedor(0, nombreCompleto, correo, salarioMensual));
         }
-        
-        throw new RuntimeException("No se encuentra el cajero que desea editar");
+        throw new RuntimeException("No se encuentra el empleado que desea editar");
     }
 
-    public void editarEmpleadoGerente(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, double bonificacion) throws RuntimeException {
-        for (Empleado empleado : this.empleados) {
-            System.out.println("Revisando empleado con ID: " + empleado.getIdEmpleado());
-
-            if (empleado.getIdEmpleado() == idEmpleado) {
-                System.out.println("Empleado encontrado: " + empleado.getNombreCompleto());
-
-                if (empleado instanceof Gerente) {
-                    empleado.setNombreCompleto(nombreCompleto);
-                    empleado.setSalarioMensual(salarioMensual);
-                    empleado.setCorreo(correo);
-                    ((Gerente) empleado).setBonificacion(bonificacion);
-                    System.out.println("Gerente editado con éxito: " + nombreCompleto);
-                    return;
-                } else {
-                    System.out.println("El empleado no es un gerente.");
-                }
-            }
-        }
-        throw new RuntimeException("No se encuentra el gerente que desea editar");
+    public Empleado buscarEmpleado(int idEmpleado) {
+        return this.empleadoDAO.buscarEmpleado(idEmpleado);
     }
 
-    public void editarEmpleadoReponedor(int idEmpleado, String nombreCompleto, String correo, double salarioMensual) throws RuntimeException {
+    public Empleado iniciarSesion(int idEmpleado, String correo){
         for (Empleado empleado : this.empleados) {
-            System.out.println("Revisando empleado con ID: " + empleado.getIdEmpleado());
-
-            if (empleado.getIdEmpleado() == idEmpleado) {
-                System.out.println("Empleado encontrado: " + empleado.getNombreCompleto());
-
-                if (empleado instanceof Reponedor) {
-                    empleado.setNombreCompleto(nombreCompleto);
-                    empleado.setSalarioMensual(salarioMensual);
-                    empleado.setCorreo(correo);
-                    System.out.println("Reponedor editado con éxito: " + nombreCompleto);
-                    return;
-                } else {
-                    System.out.println("El empleado no es un reponedor.");
-                }
-            }
-        }
-        throw new RuntimeException("No se encuentra el reponedor que desea editar");
-    }
-
-    private boolean buscarEmpleado(int idEmpleado) {
-        for (Empleado empleado : this.empleados) {
-            if (empleado.getIdEmpleado() == idEmpleado) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public Empleado iniciarSesion(int idEmpleado, String correo) {
-        if (buscarEmpleado(idEmpleado)) {
-            if (correo == null) {
-                return null;
-            }
-
-            for (Empleado empleado : this.empleados) {
-                if (empleado.getIdEmpleado() == idEmpleado && correo.equals(empleado.getCorreo())) {
-                    return empleado;
-                }
+            if(empleado.getIdEmpleado() == idEmpleado && empleado.getCorreo().equals(correo)) {
+                return empleado;
             }
         }
         return null;

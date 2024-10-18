@@ -21,14 +21,12 @@ public class EmpleadoController {
         this.empleadoService.eliminarEmpleado(idEmpleado);
     }
 
-    public void editarEmpleadoGerente(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, double bonificacion) {
-        this.empleadoService.editarEmpleadoGerente(idEmpleado, nombreCompleto, correo, salarioMensual, bonificacion);
+    public void editarEmpleado(String tipoEmpleado, int idEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno, double bonificacion){
+        this.empleadoService.editarEmpleado(tipoEmpleado, idEmpleado, nombreCompleto, correo, salarioMensual, turno, bonificacion);
     }
-    public void editarEmpleadoCajero(int idEmpleado, String nombreCompleto, String correo, double salarioMensual, String turno) {
-        this.empleadoService.editarEmpleadoCajero(idEmpleado, nombreCompleto, correo, salarioMensual, turno);
-    }
-    public void editarEmpleadoReponedor(int idEmpleado, String nombreCompleto, String correo, double salarioMensual) {
-        this.empleadoService.editarEmpleadoReponedor(idEmpleado, nombreCompleto, correo, salarioMensual);
+
+    public Empleado buscarEmpleado(int idEmpleado) {
+        return this.empleadoService.buscarEmpleado(idEmpleado);
     }
     
     public Empleado iniciarSesion(int idEmpleado, String correo) {

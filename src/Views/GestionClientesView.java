@@ -9,6 +9,7 @@ import Controllers.EmpleadoController;
 import Controllers.ProductoController;
 import Controllers.ProveedorController;
 import Models.Cliente;
+import Models.Empleados.Empleado;
 
 import java.awt.Color;
 
@@ -30,8 +31,9 @@ public class GestionClientesView extends javax.swing.JFrame {
     EmpleadoController ec;
     ClienteController cc;
     ProveedorController pvC;
+    Empleado empleado;
     
-    public GestionClientesView(ProductoController pc, EmpleadoController ec, ClienteController cc, ProveedorController pvC) {
+    public GestionClientesView(ProductoController pc, EmpleadoController ec, ClienteController cc, ProveedorController pvC, Empleado empleado) {
         initComponents();
         setLocationRelativeTo(this);
         setTitle("GESTIÓN DE CLIENTES");
@@ -40,6 +42,7 @@ public class GestionClientesView extends javax.swing.JFrame {
         this.pvC = pvC;
         this.ec = ec;
         this.cc = cc;
+        this.empleado = empleado;
         
         pintarBotones();
         llenarTabla();
@@ -360,7 +363,7 @@ public class GestionClientesView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        ViewGerente vg = new ViewGerente(pc,ec,cc,pvC);
+        ViewGerente vg = new ViewGerente(pc,ec,cc,pvC,this.empleado);
         vg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
