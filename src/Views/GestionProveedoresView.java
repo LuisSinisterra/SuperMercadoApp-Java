@@ -8,6 +8,7 @@ import Controllers.ClienteController;
 import Controllers.EmpleadoController;
 import Controllers.ProductoController;
 import Controllers.ProveedorController;
+import Models.Empleados.Empleado;
 import Models.Productos.Producto;
 import Models.Proveedor;
 import java.awt.Color;
@@ -29,12 +30,14 @@ public class GestionProveedoresView extends javax.swing.JFrame {
     EmpleadoController ec;
     ClienteController cc;
     ProveedorController pvC;
+    Empleado empleado;
     
-    public GestionProveedoresView(ProductoController pc, EmpleadoController ec, ClienteController cc, ProveedorController pvC) {
+    public GestionProveedoresView(ProductoController pc, EmpleadoController ec, ClienteController cc, ProveedorController pvC, Empleado empleado) {
         this.pc = pc;
         this.pvC = pvC;
         this.ec = ec;
         this.cc = cc;
+        this.empleado = empleado;
         
         initComponents();
         setLocationRelativeTo(this);
@@ -396,7 +399,7 @@ public class GestionProveedoresView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        ViewGerente vg = new ViewGerente(pc,ec,cc,pvC);
+        ViewGerente vg = new ViewGerente(pc,ec,cc,pvC,this.empleado);
         vg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed

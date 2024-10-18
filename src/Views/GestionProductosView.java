@@ -8,6 +8,7 @@ import Controllers.ClienteController;
 import Controllers.EmpleadoController;
 import Controllers.ProductoController;
 import Controllers.ProveedorController;
+import Models.Empleados.Empleado;
 import Models.Productos.Producto;
 import Models.Productos.ProductoNoPerecedero;
 import Models.Productos.ProductoPerecedero;
@@ -31,16 +32,20 @@ public class GestionProductosView extends javax.swing.JFrame {
     EmpleadoController ec;
     ClienteController cc;
     ProveedorController pvC;
+    Empleado empleado;
     
     
-    public GestionProductosView(ProductoController pc, EmpleadoController ec, ClienteController cc, ProveedorController pvC) {
+    public GestionProductosView(ProductoController pc, EmpleadoController ec, ClienteController cc, ProveedorController pvC, Empleado empleado) {
         initComponents();
         setLocationRelativeTo(this);
         setResizable(false);
+
         this.pc = pc;
         this.pvC = pvC;
         this.ec = ec;
         this.cc = cc;
+        this.empleado = empleado;
+
         alistarTabla(0);
         estilarElementos();
         alistarBox1();
@@ -131,10 +136,7 @@ public class GestionProductosView extends javax.swing.JFrame {
         tabla.setModel(modelo);
     }
     
-    
-    
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -454,7 +456,7 @@ public class GestionProductosView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarActionPerformed
-        ViewGerente vg = new ViewGerente(pc,ec,cc,pvC);
+        ViewGerente vg = new ViewGerente(pc,ec,cc,pvC,this.empleado);
         vg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_regresarActionPerformed
