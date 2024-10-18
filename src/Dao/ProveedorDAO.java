@@ -19,7 +19,7 @@ public class ProveedorDAO {
     private DataBaseConnector dbc = new DataBaseConnector();
     
     
-    public void agregarProveedor(Proveedor proveedor){
+    public void agregarProveedor(Proveedor proveedor) throws RuntimeException{
         String sql = "INSERT INTO Proveedores (nombreEmpresa,telefonoContacto,email)"
                 + " VALUES (?,?,?)";
         try(Connection con = dbc.connect();
@@ -31,7 +31,7 @@ public class ProveedorDAO {
   
             pstmt.executeUpdate();
         }catch(SQLException e){
-            System.out.println("FALLO AL AGREGAR PROVEEDOR " + e.getMessage());
+             throw new RuntimeException("El email ya existe en otro proveedor: " + e.getMessage(), e);
         }
     }
     
@@ -84,7 +84,7 @@ public class ProveedorDAO {
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("FALLO AL EDITAR PROVEEDOR " + e.getMessage());
+            throw new RuntimeException("Este email ya existe en otro proveedor");
         }
     }
     
