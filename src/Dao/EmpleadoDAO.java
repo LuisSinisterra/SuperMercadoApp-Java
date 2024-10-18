@@ -48,7 +48,7 @@ public class EmpleadoDAO {
     }
 
     public void eliminarEmpleado(int idEmpleado) {
-        String sql = "DELETE FROM Empleados WHERE id = ?";
+        String sql = "DELETE FROM Empleados WHERE id_empleado = ?";
 
         try(Connection con = dbc.connect();
             PreparedStatement pstmt = con.prepareStatement(sql)){
@@ -94,8 +94,8 @@ public class EmpleadoDAO {
         return empleados;
     }
 
-    public void editarEmpleado(Empleado empleado) {
-        String sql = "UPDATE Empleados SET nombreCompleto = ?, correo = ?, salario = ?, tipo_empleado = ?, turno = ?, bonificacion = ? WHERE id = ?";
+    public void editarEmpleado(int idEmpleado, Empleado empleado) {
+        String sql = "UPDATE Empleados SET nombre_completo = ?, correo = ?, salario = ?, tipo_empleado = ?, turno = ?, bonificacion = ? WHERE id_empleado = ?";
 
         try (Connection con = dbc.connect();
              PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -118,9 +118,7 @@ public class EmpleadoDAO {
                 pstmt.setDouble(6, 0);
             }
 
-            pstmt.setString(3, (empleado instanceof Gerente) ? "Gerente" : "Cajero");
-            pstmt.setString(4, ((Cajero) empleado).getTurno());
-            pstmt.setDouble(5, ((Gerente) empleado).getBonificacion());
+            pstmt.setInt(7, idEmpleado);
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -129,14 +127,14 @@ public class EmpleadoDAO {
     }
 
     public Empleado buscarEmpleado(int idEmpleado){
-        String sql = "SELECT * FROM Empleados WHERE id = ?";
+        String sql = "SELECT * FROM Empleados WHERE id_empleado = ?";
 
         try(Connection con = dbc.connect();
             PreparedStatement pstmt = con.prepareStatement(sql)){
             pstmt.setInt(1, idEmpleado);
             ResultSet rs = pstmt.executeQuery();
 
-            String nombreCompleto = rs.getString("nombreCompleto");
+            String nombreCompleto = rs.getString("nombre_completo");
             String correo = rs.getString("correo");
             double salario = Double.parseDouble(rs.getString("salario"));
             String turno = rs.getString("turno");
@@ -151,7 +149,7 @@ public class EmpleadoDAO {
             }
 
         }catch(SQLException e){
-            System.out.println("FALLO AL ELIMINAR UN EMPLEADO " + e.getMessage());
+            System.out.println("FALLO AL BUSCAR EL EMPLEADO " + e.getMessage());
         }
         return null;
     }

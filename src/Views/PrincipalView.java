@@ -12,6 +12,8 @@ import Models.Empleados.Cajero;
 import Models.Empleados.Gerente;
 import Models.Empleados.Empleado;
 import Views.ViewGerente;
+
+import javax.swing.*;
 import java.awt.Color;
 
 /**
@@ -37,10 +39,8 @@ public class PrincipalView extends javax.swing.JFrame {
         this.ec = ec == null? new EmpleadoController() : ec;
         this.cc = cc == null? new ClienteController() : cc;
         this.pvC = pvC == null? new ProveedorController() : pvC;
-        
     }
-   
-    
+
     private void pintarBtnIniciarSesion(){
         btnIniciarSesion.setBackground(new Color(46, 134, 193));
     }
@@ -117,24 +117,32 @@ public class PrincipalView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        
-        int idEmpleado = Integer.parseInt(txtIdEmpleado.getText());
-        String correo = txtCorreo.getText();
 
-        Empleado empleado = this.ec.iniciarSesion(idEmpleado, correo);
-        System.out.println(empleado);
+        try{
+            int idEmpleado = Integer.parseInt(txtIdEmpleado.getText());
+            String correo = txtCorreo.getText();
 
-        if(empleado != null){
-            if(empleado instanceof Gerente){
-                ViewGerente vg = new ViewGerente(pc, ec, cc, pvC);
-                vg.setVisible(true);
-                this.dispose();
-            } else if (empleado instanceof Cajero) {
-                ViewCajero vc = new ViewCajero(empleado, this.pc, this.ec, this.cc, this.pvC);
-                vc.setVisible(true);
-                this.dispose();
+            Empleado empleado = this.ec.iniciarSesion(idEmpleado, correo);
+
+            if(empleado != null){
+                if(empleado instanceof Gerente){
+                    ViewGerente vg = new ViewGerente(pc, ec, cc, pvC, empleado);
+                    vg.setVisible(true);
+                    this.dispose();
+                } else if (empleado instanceof Cajero) {
+                    ViewCajero vc = new ViewCajero(empleado, this.pc, this.ec, this.cc, this.pvC);
+                    vc.setVisible(true);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "El Gerente o Cajero no es correcto");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "El Gerente o Cajero no es correcto");
             }
-        } 
+        }catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "El id del empleado no es correcto " + e.getMessage());
+        }
+
         
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 

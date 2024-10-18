@@ -8,6 +8,8 @@ import Controllers.ProductoController;
 import Controllers.EmpleadoController;
 import Controllers.ClienteController;
 import Controllers.ProveedorController;
+import Models.Empleados.Empleado;
+
 import java.awt.Color;
 
 /**
@@ -24,8 +26,9 @@ public class ViewGerente extends javax.swing.JFrame {
     EmpleadoController ec;
     ClienteController cc;
     ProveedorController pvC;
+    Empleado empleado;
     
-    public ViewGerente(ProductoController pc, EmpleadoController ec, ClienteController cc, ProveedorController pvC) {
+    public ViewGerente(ProductoController pc, EmpleadoController ec, ClienteController cc, ProveedorController pvC, Empleado empleado) {
         initComponents();
         setLocationRelativeTo(this);
         
@@ -34,9 +37,13 @@ public class ViewGerente extends javax.swing.JFrame {
         this.ec = ec;
         this.cc = cc;
         this.pvC = pvC;
-        
+        this.empleado = empleado;
+
         this.setResizable(false);
         //estilarElementos();
+
+        txtNombreUsuario.setText(this.empleado.getNombreCompleto());
+        txtNombreUsuario.setEnabled(false);
     }
     
     public void estilarElementos(){
@@ -71,6 +78,8 @@ public class ViewGerente extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         btnProveedores = new javax.swing.JButton();
         btnSesion = new javax.swing.JButton();
+        lblUsuario = new javax.swing.JLabel();
+        txtNombreUsuario = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -115,16 +124,18 @@ public class ViewGerente extends javax.swing.JFrame {
             }
         });
 
+        lblUsuario.setText("Usuario:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(541, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(lblUsuario)
+                .addGap(18, 18, 18)
+                .addComponent(txtNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -136,6 +147,10 @@ public class ViewGerente extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addComponent(btnProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(242, 242, 242)))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(541, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,7 +159,11 @@ public class ViewGerente extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnSesion))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSesion)
+                            .addComponent(lblUsuario)
+                            .addComponent(txtNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(53, 53, 53)
@@ -155,8 +174,7 @@ public class ViewGerente extends javax.swing.JFrame {
                         .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addComponent(btnEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 100, Short.MAX_VALUE)))
-                .addGap(29, 29, 29))
+                        .addContainerGap(129, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -174,25 +192,25 @@ public class ViewGerente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProveedoresActionPerformed
-        GestionProveedoresView gp = new GestionProveedoresView(pc,ec,cc,pvC);
-        gp.setVisible(true);
+        GestionProveedoresView gp = new GestionProveedoresView(pc,ec,cc,pvC,this.empleado);
+         gp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnProveedoresActionPerformed
 
     private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
-        GestionProductosView vp = new GestionProductosView(pc,ec,cc,pvC);
+        GestionProductosView vp = new GestionProductosView(pc,ec,cc,pvC,this.empleado);
         vp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnProductosActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
-        GestionClientesView gc = new GestionClientesView(pc,ec,cc,pvC);
+        GestionClientesView gc = new GestionClientesView(pc,ec,cc,pvC,this.empleado);
         gc.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadosActionPerformed
-        GestionEmpleadosView ge = new GestionEmpleadosView(pc,ec,cc,pvC);
+        GestionEmpleadosView ge = new GestionEmpleadosView(pc,ec,cc,pvC,this.empleado);
         ge.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnEmpleadosActionPerformed
@@ -218,5 +236,7 @@ public class ViewGerente extends javax.swing.JFrame {
     private javax.swing.JButton btnSesion;
     private javax.swing.JButton jButton5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblUsuario;
+    private javax.swing.JTextField txtNombreUsuario;
     // End of variables declaration//GEN-END:variables
 }

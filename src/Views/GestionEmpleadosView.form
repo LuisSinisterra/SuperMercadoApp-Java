@@ -118,7 +118,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="txtTurno" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtSalarioMensual" alignment="1" max="32767" attributes="0"/>
-                              <Component id="txtBonifcacion" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtBonificacion" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtCorreo" alignment="1" max="32767" attributes="0"/>
                               <Component id="txtNombreCompleto" max="32767" attributes="0"/>
                               <Component id="cbxTipoEmpleado" alignment="1" pref="533" max="32767" attributes="0"/>
@@ -177,7 +177,7 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtBonifcacion" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtBonificacion" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -284,12 +284,15 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTurnoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtBonifcacion">
+        <Component class="javax.swing.JTextField" name="txtBonificacion">
         </Component>
         <Component class="javax.swing.JButton" name="btnBuscar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Buscar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="cbxIdEmpleado">
           <Properties>

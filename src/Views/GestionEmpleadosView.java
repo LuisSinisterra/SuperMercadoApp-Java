@@ -30,14 +30,18 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
     EmpleadoController ec;
     ClienteController cc;
     ProveedorController pvC;
+    Empleado empleado;
     
-    public GestionEmpleadosView(ProductoController pc, EmpleadoController ec, ClienteController cc, ProveedorController pvC) {
+    public GestionEmpleadosView(ProductoController pc, EmpleadoController ec, ClienteController cc, ProveedorController pvC, Empleado empleado) {
         initComponents();
         setLocationRelativeTo(this);
+
         this.pc = pc == null? new ProductoController() : pc;
         this.ec = ec == null? new EmpleadoController() : ec;
         this.cc = cc == null? new ClienteController() : cc;
         this.pvC = pvC == null? new ProveedorController() : pvC;
+        this.empleado = empleado;
+
         this.pintarBotones();
         this.alistarTabla();
         this.alistarBox();
@@ -78,7 +82,7 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
                     empleado.getNombreCompleto(),
                     empleado.getCorreo(),
                     empleado.getSalarioMensual(),
-                    empleado.getClass().getSimpleName().equals("Cajero") ? "Cajero" : "Gerente",
+                    empleado.getClass().getSimpleName().equals("Cajero") ? "Cajero" : empleado.getClass().getSimpleName().equals("Gerente") ? "Gerente" : "Reponedor",
                     empleado instanceof Cajero ? ((Cajero) empleado).getTurno() : "No aplica",
                     empleado instanceof Gerente ? ((Gerente) empleado).getBonificacion() : 0.0
             });
@@ -118,7 +122,7 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         txtTurno = new javax.swing.JTextField();
-        txtBonifcacion = new javax.swing.JTextField();
+        txtBonificacion = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         cbxIdEmpleado = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
@@ -199,6 +203,11 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
         });
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         cbxIdEmpleado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -225,7 +234,7 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtTurno)
                             .addComponent(txtSalarioMensual, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtBonifcacion)
+                            .addComponent(txtBonificacion)
                             .addComponent(txtCorreo, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtNombreCompleto)
                             .addComponent(cbxTipoEmpleado, javax.swing.GroupLayout.Alignment.TRAILING, 0, 533, Short.MAX_VALUE)
@@ -272,7 +281,7 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(txtBonifcacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtBonificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addComponent(btnEditar)
@@ -347,7 +356,7 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        ViewGerente vg = new ViewGerente(pc,ec,cc,pvC);
+        ViewGerente vg = new ViewGerente(pc,ec,cc,pvC,this.empleado);
         vg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
@@ -360,7 +369,7 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
             String correo = txtCorreo.getText();
             double salarioMensual = Double.parseDouble(txtSalarioMensual.getText());
             String turno = (!txtTurno.getText().isEmpty()) ? txtTurno.getText() : "";
-            double bonificacion = (!txtBonifcacion.getText().isEmpty()) ? Double.parseDouble(txtBonifcacion.getText()) : 0.0;
+            double bonificacion = (!txtBonificacion.getText().isEmpty()) ? Double.parseDouble(txtBonificacion.getText()) : 0.0;
             this.ec.agregarEmpleado(tipoEmpleado, nombreCompleto, correo, salarioMensual, turno, bonificacion);
             this.alistarTabla();
             this.limpiarCampos();
@@ -377,20 +386,20 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
         txtCorreo.setText("");
         txtSalarioMensual.setText("");
         txtTurno.setText("");
-        txtBonifcacion.setText("");
+        txtBonificacion.setText("");
     }
     
     private void habilitarTurnoBonificacion(){
         String tipoEmpleado = (String) cbxTipoEmpleado.getSelectedItem();
         if(tipoEmpleado.equals("Gerente")){
             txtTurno.setEnabled(false);
-            txtBonifcacion.setEnabled(true);
+            txtBonificacion.setEnabled(true);
         } else if(tipoEmpleado.equals("Cajero")) {
-            txtBonifcacion.setEnabled(false);
+            txtBonificacion.setEnabled(false);
             txtTurno.setEnabled(true);
         } else {
             txtTurno.setEnabled(false);
-            txtBonifcacion.setEnabled(false);
+            txtBonificacion.setEnabled(false);
         }
     }
 
@@ -408,6 +417,7 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
             this.ec.eliminarEmpleado(idEmpleado);
             this.limpiarCampos();
             this.alistarTabla();
+            this.alistarBox();
             JOptionPane.showMessageDialog(null, "¡EMPLEADO ELIMINADO CORRECTAMENTE!");
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "El ID debe ser un número entero válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
@@ -419,29 +429,48 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
 
-        
         try {
             String tipoEmpleado = (String) cbxTipoEmpleado.getSelectedItem();
             int idEmpleado = Integer.parseInt((String) cbxIdEmpleado.getSelectedItem());
             String nombreCompleto = txtNombreCompleto.getText();
             String correo = txtCorreo.getText();
             double salarioMensual = Double.parseDouble(txtSalarioMensual.getText());
-        
-        if(tipoEmpleado.equals("Gerente")){
-            this.ec.editarEmpleadoGerente(idEmpleado, nombreCompleto, correo, salarioMensual, salarioMensual);
-        } else if(tipoEmpleado.equals("Cajero")){
             String turno = txtTurno.getText();
-            this.ec.editarEmpleadoCajero(idEmpleado, nombreCompleto, correo, salarioMensual, turno);
-        } else {
-            this.ec.editarEmpleadoReponedor(idEmpleado, nombreCompleto, correo, salarioMensual);
-        }
-        
-        this.alistarTabla();
-        this.limpiarCampos();   
+            double bonificacion = Double.parseDouble(txtBonificacion.getText());
+
+            this.ec.editarEmpleado(tipoEmpleado, idEmpleado, nombreCompleto, correo, salarioMensual, turno, bonificacion);
+
+            this.alistarTabla();
+            this.limpiarCampos();
+            this.alistarBox();
         }  catch(RuntimeException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        int idEmpleado = Integer.parseInt((String) cbxIdEmpleado.getSelectedItem());
+        Empleado empleado = this.ec.buscarEmpleado(idEmpleado);
+
+        if(empleado instanceof Gerente){
+            cbxTipoEmpleado.setSelectedItem("Gerente");
+            txtTurno.setText("No aplica");
+            txtBonificacion.setText(String.valueOf(((Gerente) empleado).getBonificacion()));
+        } else if(empleado instanceof Cajero){
+            cbxTipoEmpleado.setSelectedItem("Cajero");
+            txtTurno.setText(((Cajero) empleado).getTurno());
+            txtBonificacion.setText(String.valueOf((0.0)));
+        } else {
+            cbxTipoEmpleado.setSelectedItem("Reponedor");
+            txtTurno.setText("No aplica");
+            txtBonificacion.setText(String.valueOf((0.0)));
+        }
+
+        txtNombreCompleto.setText(empleado.getNombreCompleto());
+        txtCorreo.setText(empleado.getCorreo());
+        txtSalarioMensual.setText(String.valueOf(empleado.getSalarioMensual()));
+
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -475,7 +504,7 @@ public class GestionEmpleadosView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable tabla;
-    private javax.swing.JTextField txtBonifcacion;
+    private javax.swing.JTextField txtBonificacion;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtNombreCompleto;
     private javax.swing.JTextField txtSalarioMensual;
